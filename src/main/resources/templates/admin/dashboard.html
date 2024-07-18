@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="~{admin/index.html :: dynamic(~{::body})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+</head>
+<body>
+<div class="mt-5">
+    <h1 class="text-center mb-4">Dashboard</h1>
+    <div class="card mb-3">
+        <div class="card-body">
+            <h2 class="card-title">Tổng số tài khoản : [(${#lists.size(totalAccounts)})]</h2>
+            <a class="btn btn-primary" th:href="@{/users}">Xem</a>
+        </div>
+    </div>
+    <div class="card mb-3">
+        <div class="card-body">
+            <h2 class="card-title">Tổng số sản phẩm : [(${#lists.size(totalProducts)})]</h2>
+            <a class="btn btn-primary" th:href="@{/products}">Xem</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h2 class="card-title">Tổng số sản phẩm còn hàng : [(${#lists.size(totalProductsAvailable)})]</h2>
+                    <a class="btn btn-primary" th:href="@{/products}">Xem</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h2 class="card-title">Tổng số sản phẩm hết hàng :
+                        [(${#lists.size(totalProductsNotAvailable)})]</h2>
+                    <a class="btn btn-primary" th:href="@{/products}">Xem</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

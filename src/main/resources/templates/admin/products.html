@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="~{/admin/index.html :: dynamic(~{::body})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Manage your products efficiently with our comprehensive product management system.">
+    <title>Products Management</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<header>
+    <h1 class="text-center">Products Management</h1>
+</header>
+<main class="container">
+    <form th:action="@{/products/save}" th:object="${product}" class="col-lg-6 mb-4">
+        <input type="hidden" th:field="*{id}">
+        <div class="form-group mb-3">
+            <label for="name">Name:</label>
+            <input th:field="*{name}" id="name" class="form-control" type="text" placeholder="Enter name" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="price">Price:</label>
+            <input th:field="*{price}" id="price" class="form-control" type="number" placeholder="Enter price" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="image">Image:</label>
+            <input th:field="*{image}" id="image" class="form-control" type="text" placeholder="Enter image URL">
+        </div>
+        <div class="form-group mb-3">
+            <label>Available:</label>
+            <div class="d-flex gap-5">
+                <div class="form-check">
+                    <label for="availableTrue" class="form-check-label">Yes</label>
+                    <input value="true" th:field="*{available}" id="availableTrue" class="form-check-input"
+                           type="radio">
+                </div>
+                <div class="form-check">
+                    <label for="availableFalse" class="form-check-label">No</label>
+                    <input value="false" th:field="*{available}" id="availableFalse" class="form-check-input"
+                           type="radio">
+                </div>
+            </div>
+        </div>
+        <div class="form-group mb-3">
+            <label for="createDate">Create Date:</label>
+            <input th:value="*{createDate}" name="createDate" id="createDate" class="form-control" type="date">
+        </div>
+        <div class="form-group mb-3">
+            <label for="category">Category:</label>
+            <select th:field="*{category}" id="category" class="form-control">
+                <option th:each="category : ${categories}" th:value="${category.id}"
+                        th:text="${category.name}"></option>
+            </select>
+        </div>
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary">ADD</button>
+            <button type="submit" class="btn btn-success">UPDATE</button>
+            <button th:formaction="@{/products/delete/{id}(id=*{id})}" type="submit" class="btn btn-danger">DELETE
+            </button>
+            <button th:formaction="@{/products}" type="submit" class="btn btn-primary">RESET</button>
+        </div>
+    </form>
+    <form th:action="@{/products/filter}" class="mb-4">
+        <div class="form-group d-flex align-items-center">
+            <label for="availableFilter" class="me-2">Filter by Availability:</label>
+            <select name="availableFilter" id="availableFilter" class="form-control me-2">
+                <option value="">All</option>
+                <option value="true">Còn hàng</option>
+                <option value="false">Hết hàng</option>
+            </select>
+            <button type="submit" class="btn btn-secondary">Filter</button>
+        </div>
+    </form>
+    <h2>Danh sách sản phẩm</h2>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Available</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product,state : ${products}">
+            <td th:text="${state.count}"></td>
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.category.name}"></td>
+            <td th:text="${product.createDate}"></td>
+            <td th:text="${product.available ? 'Còn hàng' : 'Hết hàng'}"
+                th:classappend="${product.available ? 'fw-bold text-success' : 'text-danger'}"></td>
+            <td>
+                <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn btn-warning btn-sm">Edit</a>
+                <a th:href="@{/products/delete/{id}(id=${product.id})}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

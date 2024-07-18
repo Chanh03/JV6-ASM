@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="~{/admin/index.html :: dynamic(~{::body})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Users Management</title>
+</head>
+<body>
+<h1 class="text-center">Accounts Management</h1>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form th:action="@{'/users/add'}" method="post" th:object="${account}">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input th:field="*{username}" id="username" class="form-control" type="text"
+                       placeholder="Enter username">
+            </div>
+            <div class="form-group">
+                <label for="fullname">Fullname:</label>
+                <input th:field="*{fullname}" id="fullname" class="form-control" type="text"
+                       placeholder="Enter fullname">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input th:value="*{password}" name="password" minlength="8" maxlength="20" required id="password"
+                       class="form-control" type="password" placeholder="Enter password">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input th:field="*{email}" id="email" class="form-control" type="email" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+                <label for="photo">Photo:</label>
+                <input th:field="*{photo}" id="photo" class="form-control" type="text"
+                       placeholder="Enter photo URL">
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary">ADD</button>
+                <a th:href="@{/users/delete/{username}(username=*{username})}" class="btn btn-danger">Delete</a>
+                <a th:href="@{/templates/users}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="text-center mt-4">
+    <form th:action="@{'/users/search'}" class="form-inline justify-content-center">
+        <input name="search" type="text" class="form-control mr-2" placeholder="Search user">
+        <button class="btn btn-primary mr-2">Search</button>
+        <a th:href="@{'/users'}" class="btn btn-danger">Reset</a>
+    </form>
+</div>
+<h1 class="text-center mt-5">Users List [<b th:text="${#lists.size(accounts)}"></b>]</h1>
+<h1 class="text-center">Number of subjects [<b th:text="${#arrays.length(account)}"></b>]</h1>
+<table class="table table-striped mt-3">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Fullname</th>
+        <th>Password</th>
+        <th>Email</th>
+        <th>Photo</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user,state : ${accounts}">
+        <td th:text="${state.count}"></td>
+        <td th:text="${user.username}"></td>
+        <td th:text="${#strings.capitalizeWords(user.fullname).toUpperCase()}"></td>
+        <td th:text="${user.password}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.photo}"></td>
+        <td>
+            <a th:href="@{'/users/edit/' + ${user.username}}" class="btn btn-warning btn-sm">Edit</a>
+            <a th:href="@{'/users/delete/' + ${user.username}}" class="btn btn-danger btn-sm">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

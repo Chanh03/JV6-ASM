@@ -1,18 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="~{/home/index.html :: home(~{::body})}">
+<html lang="en" th:replace="~{/home/index.html :: home(~{::body})}" xmlns:th="https://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <title>Products - Products</title>
-    <style>
-
-    </style>
 </head>
+
 <body>
 <!--BANNER-->
 <section class="container my-5">
     <div class="row">
-        <img src="/webImg/banner3.jpg" alt="" class="w-100 shadow-lg">
+        <img alt="" class="w-100 shadow-lg" src="/webImg/banner3.jpg">
     </div>
 </section>
 <!--END BANNER-->
@@ -22,36 +20,33 @@
         <div class="card p-3 shadow-lg border-0">
             <h5><b>Loại sản phẩm</b></h5>
             <div class="list-group list-group-light">
-                <a th:each="catergory : ${listCategory}"
-                   th:href="@{/search(id=${catergory.id})}"
-                   class="list-group-item list-group-item-action px-3 border-0">
+                <a class="list-group-item list-group-item-action px-3 border-0"
+                   th:each="catergory : ${listCategory}" th:href="@{/search(id=${catergory.id})}">
                     <i class="fa-solid fa-angles-right"></i> <span th:text="${catergory.name}"></span>
                 </a>
             </div>
         </div>
-        <form class="shadow p-4 my-5 sticky" th:action="@{/search}" method="get">
+        <form class="shadow p-4 my-5 sticky" method="get" th:action="@{/search}">
             <h5 class="text-center">Tìm kiếm nâng cao</h5>
             <div class="">
                 <div class="form-floating mb-3">
-                    <select id="categorySelect" name="id" class="form-select">
+                    <select class="form-select" id="categorySelect" name="id">
                         <option disabled selected>Select one</option>
-                        <option th:each="category : ${listCategory}" th:value="${category.id}"
-                                th:text="${category.name}"></option>
+                        <option th:each="category : ${listCategory}" th:text="${category.name}"
+                                th:value="${category.id}"></option>
                     </select>
-                    <label for="categorySelect" class="form-label">Category</label>
+                    <label class="form-label" for="categorySelect">Category</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input id="minInput" type="text" name="min" placeholder="Enter min price"
-                           class="form-control">
-                    <label for="minInput" class="form-label">Min Price</label>
+                    <input class="form-control" id="minInput" name="min" placeholder="Enter min price" type="text">
+                    <label class="form-label" for="minInput">Min Price</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input id="maxInput" type="text" name="max" placeholder="Enter max price"
-                           class="form-control">
-                    <label for="maxInput" class="form-label">Max Price</label>
+                    <input class="form-control" id="maxInput" name="max" placeholder="Enter max price" type="text">
+                    <label class="form-label" for="maxInput">Max Price</label>
                 </div>
-                <button type="submit" class="btn btn-primary mt-2">Search</button>
-                <a th:href="@{/}" class="btn btn-danger mt-2">Reset</a>
+                <button class="btn btn-primary mt-2" type="submit">Search</button>
+                <a class="btn btn-danger mt-2" th:href="@{/}">Reset</a>
             </div>
         </form>
     </div>
@@ -62,31 +57,32 @@
             <h5>Số sản phẩm : <b th:text="${products.size()}"></b></h5>
         </div>
         <div class="row g-5">
-            <div th:each="product : ${products}" class="col-lg-4">
+            <div class="col-lg-4" th:each="product : ${products}">
                 <div class="card shadow overflow-hidden border-0 justify-content-center align-items-center p-3"
                      style="height: 20rem">
-                    <img th:alt="${product.image}" class="w-100"
+                    <img class="w-100" th:alt="${product.image}"
                          th:src="@{/images/{image}(image=${product.image})}"/>
-                    <div class="card-img-overlay d-flex align-items-center justify-content-center text-white bg-dark bg-opacity-75 ">
-                        <button th:classappend="${!product.available ? 'disabled' : ''}"
-                                type="button" class="btn">
+                    <div
+                            class="card-img-overlay d-flex align-items-center justify-content-center text-white bg-dark bg-opacity-75 ">
+                        <a th:attr="ng-click=@{|cart.add(${product.id})|}" class="btn"
+                           th:classappend="${!product.available ? 'disabled' : ''}" type="button">
                             Add to cart
-                        </button>
-                        <a style="position: absolute;top: 85%" th:href="@{/product-detail/{id}(id=${product.id})}"
-                           type="button" class="nav-link p-1">
+                        </a>
+                        <a class="nav-link p-1" style="position: absolute;top: 85%"
+                           th:href="@{/product-detail/{id}(id=${product.id})}" type="button">
                             Xem chi tiết
                         </a>
                     </div>
                 </div>
                 <div class="p-2 mt-2">
                     <div class="" style="height: auto">
-                        <h5 th:text="${product.name}" class="card-title">TÊN</h5>
+                        <h5 class="card-title" th:text="${product.name}">TÊN</h5>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
-                                <span th:text="${product.available ? 'Còn hàng' : 'Hết hàng'}"
-                                      th:classappend="${product.available ? 'text-bg-success' : 'text-bg-danger'}"
-                                      class="badge card-text">AVAILABLE</span>
-                        <span th:text="${product.price} + '$'" class="fs-1">GIÁ</span>
+                            <span class="badge card-text"
+                                  th:classappend="${product.available ? 'text-bg-success' : 'text-bg-danger'}"
+                                  th:text="${product.available ? 'Còn hàng' : 'Hết hàng'}">AVAILABLE</span>
+                        <span class="fs-1" th:text="${product.price} + '$'">GIÁ</span>
                     </div>
                 </div>
             </div>
@@ -94,4 +90,5 @@
     </div>
 </section>
 </body>
+
 </html>

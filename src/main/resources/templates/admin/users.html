@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="~{/admin/index.html :: dynamic(~{::body})}">
+<html lang="en" th:replace="~{/admin/index.html :: dynamic(~{::body})}" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Users Management</title>
@@ -8,44 +8,44 @@
 <h1 class="text-center">Accounts Management</h1>
 <div class="row justify-content-center">
     <div class="col-md-6">
-        <form th:action="@{'/users/add'}" method="post" th:object="${account}">
+        <form method="post" th:action="@{'/users/add'}" th:object="${account}">
             <div class="form-group">
                 <label for="username">Username:</label>
-                <input th:field="*{username}" id="username" class="form-control" type="text"
-                       placeholder="Enter username">
+                <input class="form-control" id="username" placeholder="Enter username" th:field="*{username}"
+                       type="text">
             </div>
             <div class="form-group">
                 <label for="fullname">Fullname:</label>
-                <input th:field="*{fullname}" id="fullname" class="form-control" type="text"
-                       placeholder="Enter fullname">
+                <input class="form-control" id="fullname" placeholder="Enter fullname" th:field="*{fullname}"
+                       type="text">
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input th:value="*{password}" name="password" minlength="8" maxlength="20" required id="password"
-                       class="form-control" type="password" placeholder="Enter password">
+                <input class="form-control" id="password" maxlength="20" minlength="8" name="password" placeholder="Enter password"
+                       required th:value="*{password}" type="password">
             </div>
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input th:field="*{email}" id="email" class="form-control" type="email" placeholder="Enter email">
+                <input class="form-control" id="email" placeholder="Enter email" th:field="*{email}" type="email">
             </div>
             <div class="form-group">
                 <label for="photo">Photo:</label>
-                <input th:field="*{photo}" id="photo" class="form-control" type="text"
-                       placeholder="Enter photo URL">
+                <input class="form-control" id="photo" placeholder="Enter photo URL" th:field="*{photo}"
+                       type="text">
             </div>
             <div class="form-group text-center">
-                <button type="submit" class="btn btn-primary">ADD</button>
-                <a th:href="@{/users/delete/{username}(username=*{username})}" class="btn btn-danger">Delete</a>
-                <a th:href="@{/templates/users}" class="btn btn-secondary">Cancel</a>
+                <button class="btn btn-primary" type="submit">ADD</button>
+                <a class="btn btn-danger" th:href="@{/users/delete/{username}(username=*{username})}">Delete</a>
+                <a class="btn btn-secondary" th:href="@{/templates/users}">Cancel</a>
             </div>
         </form>
     </div>
 </div>
 <div class="text-center mt-4">
-    <form th:action="@{'/users/search'}" class="form-inline justify-content-center">
-        <input name="search" type="text" class="form-control mr-2" placeholder="Search user">
+    <form class="form-inline justify-content-center" th:action="@{'/users/search'}">
+        <input class="form-control mr-2" name="search" placeholder="Search user" type="text">
         <button class="btn btn-primary mr-2">Search</button>
-        <a th:href="@{'/users'}" class="btn btn-danger">Reset</a>
+        <a class="btn btn-danger" th:href="@{'/users'}">Reset</a>
     </form>
 </div>
 <h1 class="text-center mt-5">Users List [<b th:text="${#lists.size(accounts)}"></b>]</h1>
@@ -71,8 +71,8 @@
         <td th:text="${user.email}"></td>
         <td th:text="${user.photo}"></td>
         <td>
-            <a th:href="@{'/users/edit/' + ${user.username}}" class="btn btn-warning btn-sm">Edit</a>
-            <a th:href="@{'/users/delete/' + ${user.username}}" class="btn btn-danger btn-sm">Delete</a>
+            <a class="btn btn-warning btn-sm" th:href="@{'/users/edit/' + ${user.username}}">Edit</a>
+            <a class="btn btn-danger btn-sm" th:href="@{'/users/delete/' + ${user.username}}">Delete</a>
         </td>
     </tr>
     </tbody>

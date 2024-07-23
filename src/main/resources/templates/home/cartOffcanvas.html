@@ -1,0 +1,18 @@
+<body>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasRightLabel">Giỏ hàng</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div ng-repeat="i in cart.items">
+            <h5>{{i.name}}</h5>
+            <p>{{i.price}} x <input ng-model="i.quantity" min="1" max="5"> = {{i.price * i.quantity}}</p>
+
+        </div>
+        <p>Sản phẩm : <b>{{cart.count}}</b></p>
+        <p>Tổng : <b>{{cart.sum}}</b></p>
+        <button class="nav-link" ng-click="cart.clear()">Xóa giỏ</button>
+    </div>
+</div>
+</body>

@@ -51,6 +51,7 @@ public class ApiControllerUsers {
             throw new RuntimeException("Account not found");
         }
     }
+
     @GetMapping("/filter")
     public Iterable<Account> search(@RequestParam(name = "username") Optional<String> username,
                                     @RequestParam(name = "email") Optional<String> email,

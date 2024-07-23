@@ -1,7 +1,7 @@
 package com.anhngo.mainproject.services;
 
-import com.anhngo.mainproject.repository.AccountRepo;
 import com.anhngo.mainproject.entities.Account;
+import com.anhngo.mainproject.repository.AccountRepo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -46,4 +46,11 @@ public class AccountService {
         return accountRepo.findAllByFullnameContaining(search, Pageable.unpaged());
     }
 
+    public boolean existsByUsername(String username) {
+        return accountRepo.existsByUsername(username);
+    }
+
+    public Iterable<Account> searchAccount(String s, String s1, String s2) {
+        return accountRepo.findAllByUsernameContainingOrEmailContainingOrFullnameContaining(s, s1, s2);
+    }
 }

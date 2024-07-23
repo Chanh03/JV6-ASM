@@ -1,175 +1,171 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org" th:fragment="home(view)">
+
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!-- BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+            integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+            crossorigin="anonymous"></script>
+
+    <!-- FONT -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
           rel="stylesheet">
+    <!-- ICON -->
+    <script src="https://kit.fontawesome.com/246169b37f.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn-add-to-cart {
+            display: none;
+            position: absolute;
+            bottom: 25%;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 50%;
+            background: rgb(255, 0, 0);
+            backdrop-filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.6));
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn-add-to-cart:hover {
+            background: rgb(255, 0, 0);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+            transform: scale(1.1);
+            color: white;
+        }
+
+        .card:hover .btn-add-to-cart {
+            display: block;
+        }
+
+        .card img:hover {
+            transform: scale(1.1);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .textDecor {
+            background: #121FCF;
+            background: linear-gradient(to right, #6571f8 0%, #b70000 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+    </style>
 </head>
-<style>
-    * {
-        font-family: 'Nunito Sans', sans-serif;
-    }
 
-    .btn-account {
-        background-color: #277a93; /* Màu nền cho nút Explore */
-        border-radius: 20px; /* Độ bo góc cho nút Explore */
-        color: white; /* Màu chữ cho nút Explore */
-    }
-
-    .sticky {
-        position: -webkit-sticky;
-        position: sticky;
-        top: 5%; /* Điều chỉnh khoảng cách top tùy ý */
-    }
-
-
-    .card {
-        filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.1));
-        position: relative;
-        -webkit-box-shadow: 13px 11.5px 17px -3px #c8c7c7;
-        -moz-box-shadow: 13px 11.5px 17px -3px #c8c7c7;
-        box-shadow: 13px 11.5px 17px -3px #c8c7c7;
-        transition: all 0.3s ease-in-out;
-    }
-
-    .btn-add-to-cart {
-        display: none;
-        position: absolute;
-        bottom: 5%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    .card:hover {
-        border: 1px solid #1f8f00 !important;
-    }
-
-    .card:hover .btn-add-to-cart {
-        display: block;
-    }
-
-    .card:hover img {
-        transform: scale(1.2) rotate(10deg);
-        transition: transform 0.5s ease-in-out; /* Thêm transition để hiệu ứng mượt hơn */
-    }
-
-    .glitch-wrapper {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-    }
-
-    .glitch {
-        position: relative;
-        font-weight: 700;
-        line-height: 1.2;
-        color: #fff;
-        letter-spacing: 5px;
-        z-index: 1;
-    }
-
-    .glitch:before,
-    .glitch:after {
-        display: block;
-        content: attr(data-glitch);
-        position: absolute;
-        top: 0;
-        left: 0;
-        opacity: 0.8;
-    }
-
-    .glitch:before {
-        animation: glitch-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
-        color: #00ffff;
-        z-index: -1;
-    }
-
-    .glitch:after {
-        animation: glitch-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
-        color: #ff00ff;
-        z-index: -2;
-    }
-
-    @keyframes glitch-color {
-        0% {
-            transform: translate(0);
-        }
-
-        20% {
-            transform: translate(-3px, 3px);
-        }
-
-        40% {
-            transform: translate(-3px, -3px);
-        }
-
-        60% {
-            transform: translate(3px, 3px);
-        }
-
-        80% {
-            transform: translate(3px, -3px);
-        }
-
-        to {
-            transform: translate(0);
-        }
-    }
-</style>
 <body>
-<!-- Header -->
-<header class="mb-4 shadow">
-    <div class="banner w-100 d-flex justify-content-center">
-        <img src="../webImg/banner1.png" alt="" class="w-100" style="object-fit: cover; max-height: 30vh;">
-    </div>
-    <nav class="navbar navbar-expand-lg sticky-top container">
-        <div class="container-fluid">
-            <a class="navbar-brand mx-5" href="#" style="width: 5vh">
-                <div class="glitch-wrapper">
-                    <div class="glitch" data-glitch="Anh Ngô">Anh Ngô</div>
-                </div>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                </ul>
-                <button class="btn btn-account" type="button">Hello User</button>
-            </div>
+<!-- Main Navigation -->
+<header class="shadow-lg mb-5 p-0 bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light container">
+        <a class="navbar-brand" style="color: greenyellow;" th:href="@{/}">
+            <img class="" src="/webImg/logo3.png" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="btn rounded-pill text-white px-4" href="#">Sign In</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn" href="#">Sign Up</a>
+                </li>
+            </ul>
         </div>
     </nav>
 </header>
-<div class="container" th:insert="${view}">
+<!-- END Main Navigation -->
 
-</div>
-<!-- Footer -->
-<footer class="pt-4 my-md-5 pt-md-5 border-top">
+<!--Main layout-->
+<section class="container">
     <div class="row">
-        <div class="col-12 col-md">
-            <small class="d-block mb-3 text-muted">&copy; 2024 Anh Ngô Store</small>
+        <div th:insert="${view}"></div>
+    </div>
+</section>
+<!--END Main layout-->
+
+<!-- Footer -->
+<footer class="bg-dark text-white p-5 mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <h5>Company</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Our Services</a></li>
+                    <li><a href="#">Contact us</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3">
+                <h5>Support</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Help desk</a></li>
+                    <li><a href="#">Forums</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3">
+                <h5>Legal</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3">
+                <h5>Connect</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 </footer>
-
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<!-- END Footer -->
 </body>
+
 </html>

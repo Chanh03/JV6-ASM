@@ -1,0 +1,47 @@
+header {
+
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem !important;
+}
+
+.navbar-brand img {
+    position: absolute;
+    height: 100px;
+    top: 0;
+    left: 10vh;
+    transition: all 0.3s;
+}
+
+.navbar-brand img:hover {
+    transition: all 0.3s;
+    filter: drop-shadow(0 0 0.75rem #CADC8B);
+}
+nav {
+    height: 70px;
+}
+
+
+.nav-link {
+    box-shadow: inset 0 0 0 0 #54b3d6;
+    color: #54b3d6;
+}
+
+.nav-link:hover {
+    font-weight: bold;
+    color: #492ae8;
+    margin: 0 5px 0 5px;
+    box-shadow: inset 0 -2px 0 0 #492ae8;
+    transform: translateY(-5px);
+    transition: all 0.3s;
+}
+
+
+.rounded-pill {
+    background-color: #492ae8 !important;
+    color: white;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}

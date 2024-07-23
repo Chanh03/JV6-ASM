@@ -11,4 +11,8 @@ public interface AccountRepo extends JpaRepository<Account, String> {
     Page<Account> findAll(Pageable pageable);
 
     Page<Account> findAllByFullnameContaining(String search, Pageable pageable);
+
+    boolean existsByUsername(String username);
+
+    Iterable<Account> findAllByUsernameContainingOrEmailContainingOrFullnameContaining(String s, String s1, String s2);
 }

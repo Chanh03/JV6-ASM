@@ -1,5 +1,6 @@
 package com.anhngo.mainproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +22,7 @@ public class Category {
     @Column(name = "Name", nullable = false, length = 50)
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "category")
     private Set<Product> products = new LinkedHashSet<>();
 

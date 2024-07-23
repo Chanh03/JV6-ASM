@@ -5,6 +5,7 @@ import com.anhngo.mainproject.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -16,7 +17,7 @@ public class HomeController {
     @Autowired
     private CategoryService categoryService;
 
-    @RequestMapping("/")
+    @RequestMapping()
     public String home(Model model) {
         model.addAttribute("listCategory", categoryService.getAllCategories());
         model.addAttribute("products", productService.getAllProducts());
@@ -47,5 +48,12 @@ public class HomeController {
 
         model.addAttribute("listCategory", categoryService.getAllCategories());
         return "home/home";
+    }
+
+    @RequestMapping("/product-detail/{id}")
+    public String productDetail(Model model, @PathVariable(name = "id") Integer id) {
+        System.out.println("id = " + id);
+        model.addAttribute("product", productService.getProductById(id));
+        return "home/productDetail";
     }
 }

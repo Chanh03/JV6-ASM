@@ -4,6 +4,8 @@ import com.anhngo.mainproject.entities.Product;
 import com.anhngo.mainproject.repository.ProductRepo;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductService {
     private ProductRepo productRepo;
@@ -24,7 +26,7 @@ public class ProductService {
         productRepo.deleteById(id);
     }
 
-    public Iterable<Product> getAllProducts() {
+    public List<Product> getAllProducts() {
         return productRepo.findAll();
     }
 
@@ -46,5 +48,9 @@ public class ProductService {
 
     public Iterable<Product> getAllProductsAvailable(boolean available) {
         return productRepo.findByAvailable(available);
+    }
+
+    public boolean existsById(int id) {
+        return productRepo.existsById(id);
     }
 }

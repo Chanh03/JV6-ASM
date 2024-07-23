@@ -2,11 +2,8 @@ package com.anhngo.mainproject.controller;
 
 import com.anhngo.mainproject.entities.Product;
 import com.anhngo.mainproject.services.ProductService;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -17,7 +14,7 @@ public class ApiControllerProducts {
 
     @GetMapping
     public Iterable<Product> index() {
-        return productService.getAllProducts();
+        return productService.getAllProduct();
     }
 
     @PostMapping
@@ -33,6 +30,7 @@ public class ApiControllerProducts {
             throw new RuntimeException("Product not found");
         }
     }
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable(name = "id") int id) {
         if (productService.existsById(id)) {
@@ -41,6 +39,7 @@ public class ApiControllerProducts {
             throw new RuntimeException("Product not found");
         }
     }
+
     @GetMapping("/{id}")
     public Product edit(@PathVariable(name = "id") int id) {
         try {

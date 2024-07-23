@@ -21,7 +21,7 @@ public class AdminController {
     @RequestMapping("")
     public String index(Model model) {
         model.addAttribute("totalAccounts", accountService.getAllAccounts());
-        model.addAttribute("totalProducts", productService.getAllProducts());
+        model.addAttribute("totalProducts", productService.getAllProduct());
         model.addAttribute("totalProductsAvailable", productService.getAllProductsAvailable(true));
         model.addAttribute("totalProductsNotAvailable", productService.getAllProductsAvailable(false));
         return "admin/dashboard";

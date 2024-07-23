@@ -18,60 +18,65 @@
 <!--END BANNER-->
 <!-- Main Content -->
 <section class="row">
-    <!--    <div class="col-lg-3">-->
-    <!--        <form class="shadow p-4 d-flex justify-content-center" th:action="@{/search}" method="get">-->
-    <!--            <div class="w-100 max-w-lg my-2">-->
-    <!--                <div class="mb-3">-->
-    <!--                    <label for="categorySelect" class="form-label">Category</label>-->
-    <!--                    <select id="categorySelect" name="id" class="form-select">-->
-    <!--                        <option disabled selected>Select one</option>-->
-    <!--                        <option th:each="category : ${listCategory}" th:value="${category.id}"-->
-    <!--                                th:text="${category.name}"></option>-->
-    <!--                    </select>-->
-    <!--                </div>-->
-    <!--                <div class="mb-3">-->
-    <!--                    <label for="minInput" class="form-label">Min Price</label>-->
-    <!--                    <input id="minInput" value="0" type="text" name="min" placeholder="Enter min price"-->
-    <!--                           class="form-control">-->
-    <!--                </div>-->
-    <!--                <div class="mb-3">-->
-    <!--                    <label for="maxInput" class="form-label">Max Price</label>-->
-    <!--                    <input id="maxInput" value="0" type="text" name="max" placeholder="Enter max price"-->
-    <!--                           class="form-control">-->
-    <!--                </div>-->
-    <!--                <button type="submit" class="btn btn-primary mt-2">Search</button>-->
-    <!--                <a th:href="@{/}" class="btn btn-danger mt-2">Reset</a>-->
-    <!--            </div>-->
-    <!--        </form>-->
-    <!--    </div>-->
-    <div class="col-lg-3 card p-3 shadow-lg border-0 h-100">
-        <h5>Category</h5>
-        <div class="list-group list-group-light">
-            <a th:each="catergory : ${listCategory}" th:text="${catergory.name}"
-               th:href="@{/search(id=${catergory.id})}"
-               class="list-group-item list-group-item-action px-3 border-0"></a>
+    <div class="col-lg-3 ">
+        <div class="card p-3 shadow-lg border-0">
+            <h5><b>Loại sản phẩm</b></h5>
+            <div class="list-group list-group-light">
+                <a th:each="catergory : ${listCategory}"
+                   th:href="@{/search(id=${catergory.id})}"
+                   class="list-group-item list-group-item-action px-3 border-0">
+                    <i class="fa-solid fa-arrow-right-to-bracket"></i> <span th:text="${catergory.name}"></span>
+                </a>
+            </div>
         </div>
+        <form class="shadow p-4 my-5 sticky" th:action="@{/search}" method="get">
+            <h5 class="text-center">Tìm kiếm nâng cao</h5>
+            <div class="">
+                <div class="form-floating mb-3">
+                    <select id="categorySelect" name="id" class="form-select">
+                        <option disabled selected>Select one</option>
+                        <option th:each="category : ${listCategory}" th:value="${category.id}"
+                                th:text="${category.name}"></option>
+                    </select>
+                    <label for="categorySelect" class="form-label">Category</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input id="minInput" type="text" name="min" placeholder="Enter min price"
+                           class="form-control">
+                    <label for="minInput" class="form-label">Min Price</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input id="maxInput" type="text" name="max" placeholder="Enter max price"
+                           class="form-control">
+                    <label for="maxInput" class="form-label">Max Price</label>
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Search</button>
+                <a th:href="@{/}" class="btn btn-danger mt-2">Reset</a>
+            </div>
+        </form>
     </div>
     <!--PRODUCTS-->
     <div class="col-lg-9">
         <div>
-            <h1 class="text-center textDecor">Products</h1>
-            <h5 th:text="'Số sản phẩm : '+${products.size()}"></h5>
+            <h1 class="text-center textDecor">Sản phẩm</h1>
+            <h5>Số sản phẩm : <b th:text="${products.size()}"></b></h5>
         </div>
         <div class="row g-5">
             <div th:each="product : ${products}" class="col-lg-4">
-                <div class="card shadow-lg overflow-hidden border-0 justify-content-center align-items-center p-3"
-                     style="height: 350px">
+                <div class="card shadow overflow-hidden border-0 justify-content-center align-items-center p-3"
+                     style="height: 20rem">
                     <img th:alt="${product.image}" class="w-100"
                          th:src="@{/images/{image}(image=${product.image})}"/>
-                    <button th:classappend="${!product.available ? 'disabled' : ''}"
-                            type="button" class="btn btn-add-to-cart">
-                        Add to cart
-                    </button>
-                    <a style="position: absolute;top: 85%" th:href="@{/product-detail/{id}(id=${product.id})}"
-                       type="button" class="nav-link p-1">
-                        Xem chi tiết
-                    </a>
+                    <div class="card-img-overlay d-flex align-items-center justify-content-center text-white bg-dark bg-opacity-75 ">
+                        <button th:classappend="${!product.available ? 'disabled' : ''}"
+                                type="button" class="btn">
+                            Add to cart
+                        </button>
+                        <a style="position: absolute;top: 85%" th:href="@{/product-detail/{id}(id=${product.id})}"
+                           type="button" class="nav-link p-1">
+                            Xem chi tiết
+                        </a>
+                    </div>
                 </div>
                 <div class="p-2 mt-2">
                     <div class="" style="height: auto">
@@ -81,7 +86,7 @@
                                 <span th:text="${product.available ? 'Còn hàng' : 'Hết hàng'}"
                                       th:classappend="${product.available ? 'text-bg-success' : 'text-bg-danger'}"
                                       class="badge card-text">AVAILABLE</span>
-                        <span th:text="${product.price} + '$'" class="fs-4">GIÁ</span>
+                        <span th:text="${product.price} + '$'" class="fs-1">GIÁ</span>
                     </div>
                 </div>
             </div>

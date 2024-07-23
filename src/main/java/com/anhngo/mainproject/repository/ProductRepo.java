@@ -11,7 +11,7 @@ import java.util.List;
 public interface ProductRepo extends JpaRepository<Product, Integer> {
 
     @Query("SELECT p FROM Product p WHERE p.category.id = :id and p.price >= :min and p.price <= :max")
-    List<Product> findByCategory(String id, double min, double max);
+    List<Product> findByCategoryAndPriceBetween(String id, double min, double max);
 
     List<Product> findByPriceBetween(double min, double max);
 

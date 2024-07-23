@@ -35,7 +35,7 @@ public class ProductsController {
             model.addAttribute("product", new Product());
         }
         model.addAttribute("categories", categoryService.getAllCategories());
-        model.addAttribute("products", productService.getAllProducts());
+        model.addAttribute("products", productService.getAllProduct());
         return "admin/products";
     }
 
@@ -54,7 +54,7 @@ public class ProductsController {
     @RequestMapping("/filter")
     public String filter(Model model, @ModelAttribute Product product, @RequestParam(name = "availableFilter", required = false) Boolean availableFilter) {
         if (availableFilter == null) {
-            model.addAttribute("products", productService.getAllProducts());
+            model.addAttribute("products", productService.getAllProduct());
         } else {
             model.addAttribute("products", productService.getAllProductsAvailable(availableFilter));
         }

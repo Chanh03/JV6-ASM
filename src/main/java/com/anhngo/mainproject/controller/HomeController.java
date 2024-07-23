@@ -1,7 +1,7 @@
 package com.anhngo.mainproject.controller;
 
 import com.anhngo.mainproject.services.CategoryService;
-import com.anhngo.mainproject.services.ProductService;
+import com.anhngo.mainproject.services.ProductServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class HomeController {
     @Autowired
-    private ProductService productService;
+    private ProductServiceInterface productService;
 
     @Autowired
     private CategoryService categoryService;
@@ -20,15 +20,12 @@ public class HomeController {
     @RequestMapping()
     public String home(Model model) {
         model.addAttribute("listCategory", categoryService.getAllCategories());
-        model.addAttribute("products", productService.getAllProducts());
+        model.addAttribute("products", productService.getAllProduct());
         return "home/home";
     }
 
     @RequestMapping("/search")
-    public String searchByCategoryId(Model model,
-                                     @RequestParam(name = "id", required = false, defaultValue = "0") String categoryId,
-                                     @RequestParam(name = "min", required = false, defaultValue = "0") double min,
-                                     @RequestParam(name = "max", required = false, defaultValue = "0") double max) {
+    public String searchByCategoryId(Model model, @RequestParam(name = "id", required = false, defaultValue = "0") String categoryId, @RequestParam(name = "min", required = false, defaultValue = "0") double min, @RequestParam(name = "max", required = false, defaultValue = "0") double max) {
         if (categoryId.equals("0") && min == 0 && max == 0) {
             return "redirect:/";
         }
@@ -42,18 +39,15 @@ public class HomeController {
             max = temp;
         }
 
-        model.addAttribute("products", categoryId.equals("0")
-                ? productService.getProductsByPriceBetween(min, max)
-                : productService.getProductsByCategory(categoryId, min, max));
-
+        model.addAttribute("products", categoryId.equals("0") ? productService.getProductsByPriceBetween(min, max) : productService.getProductsByCategory(categoryId, min, max));
         model.addAttribute("listCategory", categoryService.getAllCategories());
         return "home/home";
     }
 
     @RequestMapping("/product-detail/{id}")
     public String productDetail(Model model, @PathVariable(name = "id") Integer id) {
-        System.out.println("id = " + id);
         model.addAttribute("product", productService.getProductById(id));
+        model.addAttribute("spCungLoai", productService.getProductById(id).getCategory().getProducts());
         return "home/productDetail";
     }
 }

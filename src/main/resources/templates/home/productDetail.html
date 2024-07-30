@@ -64,7 +64,9 @@
                        th:text="${product.available ? 'Còn hàng' : 'Hết hàng'}"></p>
                     <p th:text="'Ngày đăng: ' + ${product.createDate}"></p>
                     <p class="fs-1 text-warning" th:text="${product.price} + ' $'"></p>
-                    <button th:disabled="${!product.available}" class="btn" type="button">Add to Cart</button>
+                    <button th:attr="ng-click=@{|cart.add(${product.id})|}" th:disabled="${!product.available}"
+                            class="btn" type="button">Add to Cart
+                    </button>
                 </div>
             </div>
         </div>

@@ -24,8 +24,9 @@
         </div>
         <div class="card mt-3">
             <div class="card-body">
-                <p>Sản phẩm: <b>{{cart.count}}</b></p>
-                <p>Tổng: <b>{{cart.sum}}</b></p>
+                <p>Tổng sản phẩm: <b>{{cart.count}}</b></p>
+                <p>Sản phẩm: <b>{{cart.items.length}}</b></p>
+                <h3>Tổng: <b>{{cart.sum}} $</b></h3>
                 <button style="background-color: red" class="btn btn-warning" ng-click="cart.clear()">Xóa giỏ</button>
                 <a class="btn" href="/cart-detail">Thanh toán</a>
             </div>

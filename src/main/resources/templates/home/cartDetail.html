@@ -3,16 +3,20 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="/js.js"></script>
-    <link rel="stylesheet" href="/style.css">
+    <title>Detail</title>
 </head>
 
-<body ng-app="myApp" ng-controller="myCtrl">
+<body>
 <div class="row">
-    <div class="col-lg-8 overflow-auto " style="height: 70vh">
+    <!--    CART DETAIL-->
+    <div class="col-lg-8 overflow-auto card shadow" style="height: 70vh">
         <div class="sticky bg-white" style="top: 0">
             <h1 class="text-center textDecor">Giỏ hàng</h1>
+        </div>
+        <div ng-if="cart.items.length == 0" class="alert alert-warning">Giỏ hàng trống
+            <a class="nav-item" th:href="@{/}">mua ngay</a></div>
+        <div ng-if="cart.items.length > 0" class="alert alert-success">Có {{cart.items.length}} sản phẩm trong giỏ
+            hàng
         </div>
         <div ng-repeat="i in cart.items" class="card mb-3">
             <div class="row">
@@ -25,33 +29,37 @@
                         <a class="nav-link" href="/product-detail/{{i.id}}">Xem</a>
                     </div>
                     <h6 class="card-subtitle mb-2 text-muted">Đơn giá: {{i.price}}</h6>
-                    <div class="d-flex align-items-center justify-content-between">
-                        <p class="mb-0">
-                            {{i.price}} x
+                    <div class="d-flex align-items-center align-middle justify-content-between">
+                        <div class="gap-2 d-flex justify-content-center align-items-center align-middle">
+                            <b>{{i.price}} x</b>
+                            <button class="border-0 textDecor" ng-click="i.quantity = 1; cart.saveToLocalStorage()">
+                                <i class="fa-solid fa-angles-left"></i>
+                            </button>
                             <input ng-change="cart.saveToLocalStorage()" type="number"
                                    class="form-control d-inline-block ml-2"
-                                   style="width: 60px;" required ng-model="i.quantity" min="1" max="10"> = {{i.price *
-                            i.quantity}}
-                            $
-                        </p>
+                                   style="width: 60px;" required ng-model="i.quantity" min="1" max="10">
+                            <button class="border-0 textDecor" ng-click="i.quantity = 10; cart.saveToLocalStorage()"><i
+                                    class="fa-solid fa-angles-right"></i></button>
+                            <b> = {{i.price * i.quantity}} $</b>
+                        </div>
                         <button class="btn btn-danger btn-sm mt-2 float-end" ng-click="cart.remove(i.id)">Xóa</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-</div>
-<div class="row">
-    <div class="card mt-3">
-        <div class="card-body">
-            <p>Sản phẩm: <b>{{cart.count}}</b></p>
-            <p>Tổng: <b>{{cart.sum}}</b></p>
-            <button class="btn btn-warning" ng-click="cart.clear()">Xóa giỏ</button>
+    <!--    CART SUMMARY-->
+    <div class="col-lg-4">
+        <div class="card mt-3">
+            <div class="card-body">
+                <p>Tổng sản phẩm: <b>{{cart.count}}</b></p>
+                <p>Sản phẩm: <b>{{cart.items.length}}</b></p>
+                <h3>Tổng: <b>{{cart.sum}} $</b></h3>
+                <button class="btn btn-warning" ng-click="cart.clear()">Xóa giỏ</button>
+                <a class="btn" href="/cart-detail">Thanh toán</a>
+            </div>
         </div>
     </div>
-</div>
-
 </body>
 
 </html>

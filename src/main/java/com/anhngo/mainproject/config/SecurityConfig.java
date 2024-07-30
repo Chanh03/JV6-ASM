@@ -33,9 +33,9 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> {
             auth.requestMatchers("/").permitAll();
             auth.requestMatchers("/login").authenticated();
-//            auth.requestMatchers("/admin").hasRole("ADMIN");
-//            auth.requestMatchers("/users").hasRole("ADMIN");
-//            auth.requestMatchers("/products").hasRole("ADMIN");
+            auth.requestMatchers("/admin").hasRole("ADMIN");
+            auth.requestMatchers("/users").hasRole("ADMIN");
+            auth.requestMatchers("/products").hasRole("ADMIN");
             auth.anyRequest().permitAll();
         });
         http.formLogin(form -> {
@@ -44,6 +44,7 @@ public class SecurityConfig {
         });
 
         http.exceptionHandling(ex -> {
+            ex.accessDeniedPage("/access-denied.html");
         });
         return http.build();
     }
@@ -55,10 +56,7 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails user = User.withUsername(username)
-                .password(passwordEncoder().encode(password))
-                .roles(roles)
-                .build();
+        UserDetails user = User.withUsername(username).password(passwordEncoder().encode(password)).roles(roles).build();
         return new InMemoryUserDetailsManager(user);
     }
 }

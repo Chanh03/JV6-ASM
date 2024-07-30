@@ -21,7 +21,8 @@
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input class="form-control" id="password" maxlength="20" minlength="8" name="password" placeholder="Enter password"
+                <input class="form-control" id="password" maxlength="20" minlength="8" name="password"
+                       placeholder="Enter password"
                        required th:value="*{password}" type="password">
             </div>
             <div class="form-group">
@@ -32,6 +33,10 @@
                 <label for="photo">Photo:</label>
                 <input class="form-control" id="photo" placeholder="Enter photo URL" th:field="*{photo}"
                        type="text">
+            </div>
+            <div class="form-group">
+                <label for="enabled">Enabled:</label>
+                <input id="enabled" th:field="*{enabled}" type="checkbox">
             </div>
             <div class="form-group text-center">
                 <button class="btn btn-primary" type="submit">ADD</button>
@@ -55,10 +60,11 @@
     <tr>
         <th>#</th>
         <th>Name</th>
-        <th>Fullname</th>
+        <th>Full name</th>
         <th>Password</th>
         <th>Email</th>
         <th>Photo</th>
+        <th>Enabled</th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -70,6 +76,9 @@
         <td th:text="${user.password}"></td>
         <td th:text="${user.email}"></td>
         <td th:text="${user.photo}"></td>
+        <td>
+            <input type="checkbox" th:checked="${user.enabled}">
+        </td>
         <td>
             <a class="btn btn-warning btn-sm" th:href="@{'/users/edit/' + ${user.username}}">Edit</a>
             <a class="btn btn-danger btn-sm" th:href="@{'/users/delete/' + ${user.username}}">Delete</a>

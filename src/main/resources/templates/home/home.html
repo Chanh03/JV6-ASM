@@ -21,8 +21,9 @@
             <h5><b>Loại sản phẩm</b></h5>
             <div class="list-group list-group-light">
                 <a class="list-group-item list-group-item-action px-3 border-0"
-                   th:each="catergory : ${listCategory}" th:href="@{/search(id=${catergory.id})}">
-                    <i class="fa-solid fa-angles-right"></i> <span th:text="${catergory.name}"></span>
+                   th:each="catergory,status : ${listCategory}" th:href="@{/search(id=${catergory.id})}">
+                    <span th:text="${status.index + 1 +'.' +catergory.name}">Category</span>
+                    <span class="float-end" th:text="${catergory.products.size()}">0</span>
                 </a>
             </div>
         </div>

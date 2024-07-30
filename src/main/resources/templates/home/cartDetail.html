@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{/home/index.html :: home(~{::body})}" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/js.js"></script>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+<div class="row">
+    <div class="col-lg-8 overflow-auto " style="height: 70vh">
+        <div class="sticky bg-white" style="top: 0">
+            <h1 class="text-center textDecor">Giỏ hàng</h1>
+        </div>
+        <div ng-repeat="i in cart.items" class="card mb-3">
+            <div class="row">
+                <div class="col-lg-2 align-middle d-flex justify-content-center">
+                    <img class="w-100" src="/images/{{i.image}}" alt="/images/{{i.image}}">
+                </div>
+                <div class="card-body col-lg-10">
+                    <div class="d-flex">
+                        <h5 class="card-title fw-bold">{{$index+1}}.{{i.name}}</h5>
+                        <a class="nav-link" href="/product-detail/{{i.id}}">Xem</a>
+                    </div>
+                    <h6 class="card-subtitle mb-2 text-muted">Đơn giá: {{i.price}}</h6>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <p class="mb-0">
+                            {{i.price}} x
+                            <input ng-change="cart.saveToLocalStorage()" type="number"
+                                   class="form-control d-inline-block ml-2"
+                                   style="width: 60px;" required ng-model="i.quantity" min="1" max="10"> = {{i.price *
+                            i.quantity}}
+                            $
+                        </p>
+                        <button class="btn btn-danger btn-sm mt-2 float-end" ng-click="cart.remove(i.id)">Xóa</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="card mt-3">
+        <div class="card-body">
+            <p>Sản phẩm: <b>{{cart.count}}</b></p>
+            <p>Tổng: <b>{{cart.sum}}</b></p>
+            <button class="btn btn-warning" ng-click="cart.clear()">Xóa giỏ</button>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

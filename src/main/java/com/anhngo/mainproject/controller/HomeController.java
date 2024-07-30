@@ -2,6 +2,7 @@ package com.anhngo.mainproject.controller;
 
 import com.anhngo.mainproject.services.CategoryService;
 import com.anhngo.mainproject.services.ProductServiceInterface;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,5 +50,15 @@ public class HomeController {
         model.addAttribute("product", productService.getProductById(id));
         model.addAttribute("spCungLoai", productService.getProductById(id).getCategory().getProducts());
         return "home/productDetail";
+    }
+
+    @RequestMapping("/cart-detail")
+    public String cartDetail() {
+        return "home/cartDetail";
+    }
+
+    @RequestMapping("/login")
+    public String login() {
+        return "/login";
     }
 }

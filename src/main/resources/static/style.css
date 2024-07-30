@@ -45,14 +45,14 @@ body {
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    z-index: 1020;
+    z-index: 2;
 }
 
 .sticky {
     position: -webkit-sticky;
     position: sticky;
     top: 25%;
-    z-index: 1020;
+    z-index: 1;
 }
 
 /*FORM DETAIL*/
@@ -108,4 +108,9 @@ nav {
     box-shadow: inset 0 -2px 0 0 #492ae8;
     transform: translateY(-5px);
     transition: all 0.3s;
+}
+
+/*OFFCANVAS*/
+.offcanvas-custom {
+    width: 500px !important;
 }

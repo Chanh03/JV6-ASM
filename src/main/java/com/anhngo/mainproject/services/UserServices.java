@@ -1,32 +1,32 @@
 package com.anhngo.mainproject.services;
 
-import com.anhngo.mainproject.entities.Account;
+import com.anhngo.mainproject.entities.User;
 import com.anhngo.mainproject.repository.AccountRepo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AccountService {
+public class UserServices implements UserServicesInterface {
     private AccountRepo accountRepo;
 
-    public AccountService(AccountRepo accountRepo) {
+    public UserServices(AccountRepo accountRepo) {
         this.accountRepo = accountRepo;
     }
 
-    public Iterable<Account> getAllAccounts() {
+    public Iterable<User> getAllAccounts() {
         return accountRepo.findAll();
     }
 
-    public Page<Account> getAllAccountsByPage() {
+    public Page<User> getAllAccountsByPage() {
         return accountRepo.findAll(Pageable.unpaged());
     }
 
-    public void saveAccount(Account account) {
+    public void saveAccount(User account) {
         accountRepo.save(account);
     }
 
-    public Account saveApiAccount(Account account) {
+    public User saveApiAccount(User account) {
         return accountRepo.save(account);
     }
 
@@ -34,15 +34,15 @@ public class AccountService {
         accountRepo.deleteById(id);
     }
 
-    public Account getAccountById(String id) {
+    public User getAccountById(String id) {
         return accountRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
     }
 
-    public void updateAccount(Account account) {
+    public void updateAccount(User account) {
         accountRepo.save(account);
     }
 
-    public Page<Account> search(String search) {
+    public Page<User> search(String search) {
         return accountRepo.findAllByFullnameContaining(search, Pageable.unpaged());
     }
 
@@ -50,7 +50,7 @@ public class AccountService {
         return accountRepo.existsByUsername(username);
     }
 
-    public Iterable<Account> searchAccount(String s, String s1, String s2) {
+    public Iterable<User> searchAccount(String s, String s1, String s2) {
         return accountRepo.findAllByUsernameContainingOrEmailContainingOrFullnameContaining(s, s1, s2);
     }
 }

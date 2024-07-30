@@ -1,7 +1,7 @@
 package com.anhngo.mainproject.controller;
 
 import com.anhngo.mainproject.entities.Product;
-import com.anhngo.mainproject.services.ProductService;
+import com.anhngo.mainproject.services.ProductServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/products")
 public class ApiControllerProducts {
     @Autowired
-    private ProductService productService;
+    private ProductServiceInterface productService;
 
     @GetMapping
     public Iterable<Product> index() {

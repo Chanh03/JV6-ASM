@@ -85,8 +85,10 @@
                         <h5 class="card-title m-0" th:text="${s.name}"></h5>
                     </div>
                 </div>
-                <div class="card-body text-center">
+                <div class="card-body text-center m-0 py-2 d-flex flex-row justify-content-between">
                     <h5 class="card-title fs-6 text-warning" th:text="${s.price} + '$'"></h5>
+                    <h5 class="badge" th:classappend="${s.available ? 'text-bg-success' : 'text-bg-danger'}"
+                        th:text="${s.available ? 'Còn hàng' : 'Hết hàng'}"></h5>
                 </div>
             </a>
         </div>

@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 @Controller
 @RequestMapping("/products")
 public class ProductsController {
@@ -47,6 +50,9 @@ public class ProductsController {
 
     @RequestMapping("/save")
     public String save(@ModelAttribute Product product) {
+        if (product.getCreateDate() == null) {
+            product.setCreateDate(LocalDate.now());
+        }
         productService.saveProduct(product);
         return "redirect:/products";
     }

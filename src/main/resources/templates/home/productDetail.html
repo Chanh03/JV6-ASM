@@ -67,7 +67,7 @@
                     <p th:text="'Ngày đăng: ' + ${product.createDate}"></p>
                     <p class="fs-1 text-warning" th:text="${product.price} + ' $'"></p>
                     <button th:attr="ng-click=@{|cart.add(${product.id})|}" th:disabled="${!product.available}"
-                            class="btn" type="button">Add to Cart
+                            class="btn" type="button" onclick="showToast()">Add to Cart
                     </button>
                 </div>
             </div>
@@ -147,6 +147,20 @@
         </div>
     </div>
 </div>
-
+<!--THÔNG BÁO-->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="toastMessage" class="toast hide">
+        <div class="toast-header">
+            <strong class="me-auto">Thông báo</strong>
+            <small>Vừa xong</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            <h5>Đã thêm</h5>
+            <a class="btn btn-primary" th:href="@{/cart-detail}">Xem giỏ hàng</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>

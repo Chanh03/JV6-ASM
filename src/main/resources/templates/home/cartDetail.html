@@ -11,7 +11,7 @@
     <!--    CART DETAIL-->
     <div class="col-lg-8 overflow-auto card shadow" style="height: 70vh">
         <div class="sticky bg-white" style="top: 0">
-            <h1 class="text-center textDecor">Giỏ hàng</h1>
+            <h1 class="text-center textDecor shadow">Giỏ hàng</h1>
         </div>
         <div ng-if="cart.items.length == 0" class="alert alert-warning">Giỏ hàng trống
             <a class="nav-item" th:href="@{/}">mua ngay</a></div>
@@ -24,11 +24,11 @@
                     <img class="w-100" src="/images/{{i.image}}" alt="/images/{{i.image}}">
                 </div>
                 <div class="card-body col-lg-10">
-                    <div class="d-flex">
+                    <div class="d-flex gap-5">
                         <h5 class="card-title fw-bold">{{$index+1}}.{{i.name}}</h5>
-                        <a class="nav-link" href="/product-detail/{{i.id}}">Xem</a>
+                        <a class="" href="/product-detail/{{i.id}}">Xem</a>
                     </div>
-                    <h6 class="card-subtitle mb-2 text-muted">Đơn giá: {{i.price}}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">Đơn giá: <b>{{i.price}} $</b></h6>
                     <div class="d-flex align-items-center align-middle justify-content-between">
                         <div class="gap-2 d-flex justify-content-center align-items-center align-middle">
                             <b>{{i.price}} x</b>
@@ -46,6 +46,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="text-center my-5">
+            <a ng-if="cart.items.length > 0" class="btn btn-primary" href="/">Tiếp tục mua hàng</a>
         </div>
     </div>
     <!--    CART SUMMARY-->

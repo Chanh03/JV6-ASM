@@ -65,6 +65,7 @@ app.controller('myCtrl', function ($scope, $http) {
         loadFromLocalStorage() {
             const json = localStorage.getItem('cart');
             this.items = json ? JSON.parse(json) : [];
+            console.log(json);
         },
     };
     $scope.cart.loadFromLocalStorage();

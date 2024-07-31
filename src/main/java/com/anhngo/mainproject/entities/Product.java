@@ -36,8 +36,12 @@ public class Product {
     @Column(name = "Price", nullable = false)
     private Double price;
 
+    @Nationalized
+    @Column(name = "Description", nullable = false)
+    private String description;
+
     @ColumnDefault("getdate()")
-    @Column(name = "CreateDate", nullable = false)
+    @Column(name = "Create_Date", nullable = false)
     private LocalDate createDate;
 
     @ColumnDefault("1")

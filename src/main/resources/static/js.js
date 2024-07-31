@@ -3,7 +3,7 @@ const app = angular.module('myApp', []);
 app.controller('myCtrl', function ($scope, $http) {
     // Giỏ hàng
     $scope.cart = {
-        items: [], // Thêm sản phẩm vào giỏ hàng
+        items: [],
         add(id) {
             const item = this.items.find(item => item.id === id);
             if (item) {
@@ -23,7 +23,6 @@ app.controller('myCtrl', function ($scope, $http) {
             }
         },
 
-        // Xóa sản phẩm khỏi giỏ hàng
         remove(id) {
             const index = this.items.findIndex(item => item.id === id);
             if (index !== -1) {
@@ -32,7 +31,6 @@ app.controller('myCtrl', function ($scope, $http) {
             }
         },
 
-        // Xóa tất cả sản phẩm khỏi giỏ hàng
         clear() {
             if (this.items.length === 0) {
                 alert('Giỏ hàng trống');
@@ -69,6 +67,5 @@ app.controller('myCtrl', function ($scope, $http) {
             this.items = json ? JSON.parse(json) : [];
         },
     };
-
     $scope.cart.loadFromLocalStorage();
 });

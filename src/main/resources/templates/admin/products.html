@@ -7,6 +7,17 @@
           name="description">
     <title>Products Management</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .table td, .table th {
+            word-wrap: break-word;
+            white-space: normal;
+            max-width: 150px; /* Đặt chiều rộng tối đa cho các cột, bạn có thể điều chỉnh giá trị này */
+        }
+
+        .table th {
+            white-space: nowrap; /* Để tiêu đề cột không bị xuống dòng */
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -21,11 +32,18 @@
         </div>
         <div class="form-group mb-3">
             <label for="price">Price:</label>
-            <input class="form-control" id="price" placeholder="Enter price" required th:field="*{price}" type="number">
+            <input th:value="${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}" class="form-control"
+                   id="price" placeholder="Enter price" required th:field="*{price}" type="number">
+            <h5 th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}"></h5>
         </div>
         <div class="form-group mb-3">
             <label for="image">Image:</label>
             <input class="form-control" id="image" placeholder="Enter image URL" th:field="*{image}" type="text">
+        </div>
+        <div class="form-group mb-3">
+            <label for="description">Description:</label>
+            <textarea class="form-control" id="description" name="description" th:field="*{description}">
+            </textarea>
         </div>
         <div class="form-group mb-3">
             <label>Available:</label>
@@ -83,6 +101,7 @@
             <th>Category</th>
             <th>Date</th>
             <th>Available</th>
+            <th>Description</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -91,11 +110,12 @@
             <td th:text="${state.count}"></td>
             <td th:text="${product.id}"></td>
             <td th:text="${product.name}"></td>
-            <td th:text="${product.price}"></td>
+            <td th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}"></td>
             <td th:text="${product.category.name}"></td>
             <td th:text="${product.createDate}"></td>
             <td th:classappend="${product.available ? 'fw-bold text-success' : 'text-danger'}"
                 th:text="${product.available ? 'Còn hàng' : 'Hết hàng'}"></td>
+            <td th:text="${product.description}"></td>
             <td>
                 <a class="btn btn-warning btn-sm" th:href="@{/products/edit/{id}(id=${product.id})}">Edit</a>
                 <a class="btn btn-danger btn-sm" th:href="@{/products/delete/{id}(id=${product.id})}">Delete</a>

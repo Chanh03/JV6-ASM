@@ -46,13 +46,14 @@
     <div class="col-lg-9">
         <div class="card shadow-lg border-0 rounded-0 mb-4" style="min-height: 20vh !important;">
             <div class="row g-0">
-                <p class="p-2">
-                    <a class="icon-link icon-link-hover nav-link px-2 py-1"
-                       href="/" style="position: absolute;">
-                        <i class="fa-solid fa-arrow-left"></i>
-                        Trang chủ
-                    </a>
-                </p>
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a class="icon-link icon-link-hover nav-link px-2 py-1" href="/">Trang
+                            chủ</a></li>
+                        <li class="breadcrumb-item active icon-link icon-link-hover px-2 py-1"
+                            aria-current="page" th:text="${product.name}"></li>
+                    </ol>
+                </nav>
                 <div class="col-lg-6 d-flex align-items-center overflow-hidden">
                     <img class="mx-auto" style="max-width: 20vh"
                          th:alt="${product.getImage()}" th:src="@{/images/{image}(image=${product.image})}">
@@ -60,6 +61,7 @@
                 <div class="col-lg-6 p-4">
                     <h1 class="display-5" th:text="${product.name}"></h1>
                     <p class="text-muted" th:text="'Loại : ' + ${product.category.name}"></p>
+                    <p class="text-muted" th:text="'Chi tiết : ' + ${product.description}"></p>
                     <p style="font-weight: bold" th:classappend="${product.available ? 'text success':'text-danger'}"
                        th:text="${product.available ? 'Còn hàng' : 'Hết hàng'}"></p>
                     <p th:text="'Ngày đăng: ' + ${product.createDate}"></p>
@@ -97,6 +99,54 @@
     </div>
 </div>
 
+<!--Đánh giá sp-->
+<div class="row my-5">
+    <div class="col-lg-12">
+        <h3 class="text-center textDecor">Đánh giá sản phẩm</h3>
+    </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title mb-4">Đánh giá sản phẩm <b>[[${product.name}]]</b></h5>
+
+                <div th:each="p : ${product.category.getProducts()}" class="mb-3">
+                    <div class="review-item border-bottom pb-3 mb-3">
+                        <h6 class="card-subtitle mb-2 text-muted">Đánh giá từ người dùng: <b>[[${p.name}]]</b></h6>
+                        <p class="card-text">Sản phẩm này rất tốt, bạn nên mua.</p>
+                        <div class="text-warning">
+                            <!-- Thay thế các sao bằng số lượng sao cần thiết -->
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="row">
+            <form action="">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="fullname" placeholder="name@example.com">
+                    <label for="fullname"><b class="text-danger">*</b> Full name</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                    <label for="email"><b class="text-danger">*</b> Email</label>
+                </div>
+                <div class="form-floating mb-3">
+                <textarea style="height: 200px" class="form-control" id="comment" name="comment"
+                          placeholder="Comment"> </textarea>
+                    <label class="form-label" for="comment">Comment</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

@@ -2,8 +2,10 @@ package com.anhngo.mainproject.controller;
 
 import com.anhngo.mainproject.services.CategoryService;
 import com.anhngo.mainproject.services.ProductServiceInterface;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +22,14 @@ public class HomeController {
 
     @RequestMapping()
     public String home(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.getPrincipal() instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            authentication.isAuthenticated();
+            model.addAttribute("username", authentication.getName());
+        } else {
+            model.addAttribute("username", "Guest");
+        }
         model.addAttribute("listCategory", categoryService.getAllCategories());
         model.addAttribute("products", productService.getAllProduct());
         return "home/home";

@@ -1,6 +1,6 @@
 package com.anhngo.mainproject.controller;
 
-import com.anhngo.mainproject.entities.User;
+import com.anhngo.mainproject.entities.Account;
 import com.anhngo.mainproject.services.UserServicesInterface;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,19 +25,19 @@ public class AccountController {
 
     @RequestMapping({"", "/edit/{username}"})
     public String index(Model model, @PathVariable(value = "username", required = false) String username) {
-        Page<User> page = accountService.getAllAccountsByPage();
+        Page<Account> page = accountService.getAllAccountsByPage();
         if (username != null) {
-            User account = accountService.getAccountById(username);
+            Account account = accountService.getAccountById(username);
             model.addAttribute("account", account);
         } else {
-            model.addAttribute("account", new User());
+            model.addAttribute("account", new Account());
         }
         model.addAttribute("accounts", page.getContent());
         return "admin/users";
     }
 
     @RequestMapping("/add")
-    public String update(@ModelAttribute User account) {
+    public String update(@ModelAttribute Account account) {
         String password = account.getPassword();
         account.setPassword(passwordEncoder.encode(password));
         accountService.saveAccount(account);
@@ -55,8 +55,8 @@ public class AccountController {
         if (search.isEmpty()) {
             return "redirect:/users";
         }
-        Page<User> accounts = accountService.search(search);
-        model.addAttribute("account", new User());
+        Page<Account> accounts = accountService.search(search);
+        model.addAttribute("account", new Account());
         model.addAttribute("accounts", accounts.getContent());
         return "admin/users";
     }

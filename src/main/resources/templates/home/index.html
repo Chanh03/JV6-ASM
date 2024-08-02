@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" th:fragment="home(view)" xmlns:th="https://www.thymeleaf.org">
-
+<html lang="en" th:fragment="home(view)" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -65,7 +65,13 @@
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="/login"><i class="fa-solid fa-user"></i></a>
+                    <a class="nav-link" th:href="@{/login}" sec:authorize="${isAnonymous()}">
+                        <i class="fa-solid fa-user"></i></a>
+                    <div class="d-flex">
+                        <a class="nav-link" sec:authorize="${isAuthenticated()}"
+                           th:text="${'Chào mừng : '+username}"></a>
+                        <a class="nav-link" th:href="@{/logout}" sec:authorize="${isAuthenticated()}">Logout</a>
+                    </div>
                 </li>
             </ul>
             <ul class="navbar-nav  mb-2 mb-lg-0">

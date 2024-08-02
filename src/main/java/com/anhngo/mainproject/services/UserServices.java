@@ -1,6 +1,6 @@
 package com.anhngo.mainproject.services;
 
-import com.anhngo.mainproject.entities.User;
+import com.anhngo.mainproject.entities.Account;
 import com.anhngo.mainproject.repository.AccountRepo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,19 +14,19 @@ public class UserServices implements UserServicesInterface {
         this.accountRepo = accountRepo;
     }
 
-    public Iterable<User> getAllAccounts() {
+    public Iterable<Account> getAllAccounts() {
         return accountRepo.findAll();
     }
 
-    public Page<User> getAllAccountsByPage() {
+    public Page<Account> getAllAccountsByPage() {
         return accountRepo.findAll(Pageable.unpaged());
     }
 
-    public void saveAccount(User account) {
+    public void saveAccount(Account account) {
         accountRepo.save(account);
     }
 
-    public User saveApiAccount(User account) {
+    public Account saveApiAccount(Account account) {
         return accountRepo.save(account);
     }
 
@@ -34,15 +34,15 @@ public class UserServices implements UserServicesInterface {
         accountRepo.deleteById(id);
     }
 
-    public User getAccountById(String id) {
+    public Account getAccountById(String id) {
         return accountRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
     }
 
-    public void updateAccount(User account) {
+    public void updateAccount(Account account) {
         accountRepo.save(account);
     }
 
-    public Page<User> search(String search) {
+    public Page<Account> search(String search) {
         return accountRepo.findAllByFullnameContaining(search, Pageable.unpaged());
     }
 
@@ -50,7 +50,7 @@ public class UserServices implements UserServicesInterface {
         return accountRepo.existsByUsername(username);
     }
 
-    public Iterable<User> searchAccount(String s, String s1, String s2) {
+    public Iterable<Account> searchAccount(String s, String s1, String s2) {
         return accountRepo.findAllByUsernameContainingOrEmailContainingOrFullnameContaining(s, s1, s2);
     }
 }

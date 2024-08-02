@@ -25,7 +25,7 @@ public class Order {
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "Username", nullable = false)
-    private User username;
+    private Account username;
 
     @ColumnDefault("getdate()")
     @Column(name = "CreateDate", nullable = false)

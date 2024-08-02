@@ -12,8 +12,8 @@ import org.hibernate.annotations.Nationalized;
 @Getter
 @Setter
 @Entity
-@Table(name = "Users")
-public class User {
+@Table(name = "Accounts")
+public class Account {
     @Id
     @Nationalized
     @Column(name = "Username", nullable = false, length = 50)

@@ -1,26 +1,26 @@
 package com.anhngo.mainproject.services;
 
-import com.anhngo.mainproject.entities.User;
+import com.anhngo.mainproject.entities.Account;
 import org.springframework.data.domain.Page;
 
 public interface UserServicesInterface {
-    Iterable<User> getAllAccounts();
+    Iterable<Account> getAllAccounts();
 
-    Page<User> getAllAccountsByPage();
+    Page<Account> getAllAccountsByPage();
 
-    void saveAccount(User account);
+    void saveAccount(Account account);
 
-    User saveApiAccount(User account);
+    Account saveApiAccount(Account account);
 
     void deleteAccountById(String id);
 
-    User getAccountById(String id);
+    Account getAccountById(String id);
 
-    void updateAccount(User account);
+    void updateAccount(Account account);
 
-    Page<User> search(String search);
+    Page<Account> search(String search);
 
     boolean existsByUsername(String username);
 
-    Iterable<User> searchAccount(String s, String s1, String s2);
+    Iterable<Account> searchAccount(String s, String s1, String s2);
 }

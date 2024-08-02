@@ -1,6 +1,6 @@
 package com.anhngo.mainproject.controller;
 
-import com.anhngo.mainproject.entities.User;
+import com.anhngo.mainproject.entities.Account;
 import com.anhngo.mainproject.services.UserServicesInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,17 +16,17 @@ public class ApiControllerUsers {
     private UserServicesInterface accountService;
 
     @GetMapping()
-    public Iterable<User> index() {
+    public Iterable<Account> index() {
         return accountService.getAllAccounts();
     }
 
     @PostMapping()
-    public void add(@RequestBody User account) {
+    public void add(@RequestBody Account account) {
         accountService.saveAccount(account);
     }
 
     @PutMapping("/{username}")
-    public void update(@RequestBody User account, @PathVariable(name = "username") String id) {
+    public void update(@RequestBody Account account, @PathVariable(name = "username") String id) {
         if (accountService.existsByUsername(id)) {
             accountService.updateAccount(account);
         } else {
@@ -44,7 +44,7 @@ public class ApiControllerUsers {
     }
 
     @GetMapping("/{username}")
-    public User edit(@PathVariable(name = "username") String id) {
+    public Account edit(@PathVariable(name = "username") String id) {
         try {
             return accountService.getAccountById(id);
         } catch (Exception e) {
@@ -53,7 +53,7 @@ public class ApiControllerUsers {
     }
 
     @GetMapping("/filter")
-    public Iterable<User> search(@RequestParam(name = "username") Optional<String> username, @RequestParam(name = "email") Optional<String> email, @RequestParam(name = "fullname") Optional<String> fullname) {
+    public Iterable<Account> search(@RequestParam(name = "username") Optional<String> username, @RequestParam(name = "email") Optional<String> email, @RequestParam(name = "fullname") Optional<String> fullname) {
         return accountService.searchAccount(username.orElse(""), email.orElse(""), fullname.orElse(""));
     }
 }

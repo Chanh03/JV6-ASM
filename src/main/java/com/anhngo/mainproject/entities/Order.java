@@ -22,7 +22,7 @@ public class Order {
     @Column(name = "Id", nullable = false)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "Username", nullable = false)
     private Account username;

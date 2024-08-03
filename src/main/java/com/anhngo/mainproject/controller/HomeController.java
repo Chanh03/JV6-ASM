@@ -1,5 +1,6 @@
 package com.anhngo.mainproject.controller;
 
+import com.anhngo.mainproject.entities.Account;
 import com.anhngo.mainproject.services.CategoryService;
 import com.anhngo.mainproject.services.ProductServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,12 @@ public class HomeController {
 
     @RequestMapping()
     public String home(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.getPrincipal() instanceof UserDetails) {
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            authentication.isAuthenticated();
-            model.addAttribute("username", authentication.getName());
-        } else {
-            model.addAttribute("username", "Guest");
+        //CHECK ROLE
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated() && auth.getPrincipal() instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) auth.getPrincipal();
+            String fullname = ((Account) userDetails).getFullname();
+            model.addAttribute("username", fullname);
         }
         model.addAttribute("listCategory", categoryService.getAllCategories());
         model.addAttribute("products", productService.getAllProduct());

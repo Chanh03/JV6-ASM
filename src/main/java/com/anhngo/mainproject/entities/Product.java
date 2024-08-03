@@ -9,7 +9,7 @@ import org.hibernate.annotations.Nationalized;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -42,7 +42,7 @@ public class Product {
 
     @ColumnDefault("getdate()")
     @Column(name = "Create_Date", nullable = false)
-    private LocalDate createDate;
+    private Date createDate;
 
     @ColumnDefault("1")
     @Column(name = "Available", nullable = false)

@@ -74,9 +74,10 @@ public class HomeController {
     }
 
     @RequestMapping("/login")
-    public String login() {
+    public String login(@RequestParam(value = "error", required = false) String error, Model model) {
+        if (error != null) {
+            model.addAttribute("errorMessage", "Sai rồi bạn êi :D");
+        }
         return "security/login";
     }
-
-
 }

@@ -5,7 +5,7 @@
     <title></title>
 </head>
 <body>
-<h1 class="textDecor">Order Details</h1>
+<h1 class="textDecor">Chi tiết đơn hàng</h1>
 <div class="row">
     <!--    CART DETAIL-->
     <div class="col-lg-7 overflow-auto card shadow" style="height: 70vh">
@@ -36,7 +36,7 @@
                 <h5 class="card-title   ">Thông tin đơn hàng</h5>
                 <div class="form-floating mb-3">
                     <input th:value="${order.username.getFullname()}" type="email" class="form-control" id="Fullname"
-                           placeholder="Fullname" required>
+                           placeholder="Họ và tên" required>
                     <label for="Fullname">Họ và tên</label>
                 </div>
                 <div class="form-floating mb-3">
@@ -46,9 +46,15 @@
                 </div>
                 <div class="form-floating mb-3">
                     <input th:value="${order.address}" type="text" class="form-control" id="address"
-                           placeholder="Address" required>
+                           placeholder="Địa chỉ" required>
                     <label for="address">Địa chỉ</label>
                 </div>
+                <div class="form-floating mb-3">
+                    <input th:value="${order.createDate}" type="text" class="form-control" id="createDate"
+                           placeholder="Ngày đặt" required>
+                    <label for="createDate">Ngày đặt</label>
+                </div>
+                <a href="/" class="btn btn-primary w-100">Tiếp tục mua hàng</a>
             </div>
         </div>
     </div>

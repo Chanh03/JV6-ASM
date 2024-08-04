@@ -29,7 +29,7 @@ public class SecurityConfig {
             auth.requestMatchers("/users").hasRole("ADMIN");
             auth.requestMatchers("/products").hasAnyRole("ADMIN", "STAFF");
             auth.requestMatchers("/categories").hasAnyRole("ADMIN", "STAFF");
-            auth.requestMatchers("/order-checkout").authenticated();
+            auth.requestMatchers("/order/**").authenticated();
             auth.anyRequest().permitAll();
         });
         http.formLogin(form -> {

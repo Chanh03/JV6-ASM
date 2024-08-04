@@ -62,7 +62,7 @@
                     <h1 class="display-5" th:text="${product.name}"></h1>
                     <p class="text-muted" th:text="'Loại : ' + ${product.category.name}"></p>
                     <p class="text-muted" th:text="'Chi tiết : ' + ${product.description}"></p>
-                    <p style="font-weight: bold" th:classappend="${product.available ? 'text success':'text-danger'}"
+                    <p style="font-weight: bold" th:classappend="${product.available ? 'text-success':'text-danger'}"
                        th:text="${product.available ? 'Còn hàng' : 'Hết hàng'}"></p>
                     <p th:text="'Ngày đăng: ' + ${product.createDate}"></p>
                     <p class="fs-1 text-warning" th:text="${product.price} + ' $'"></p>

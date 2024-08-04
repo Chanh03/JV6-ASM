@@ -3,6 +3,8 @@ package com.anhngo.mainproject.services;
 import com.anhngo.mainproject.entities.Order;
 import com.fasterxml.jackson.databind.JsonNode;
 
+import java.util.List;
+
 public interface OrderServiceInterface {
 
     void saveOrder(Order order);
@@ -16,4 +18,8 @@ public interface OrderServiceInterface {
     Iterable<Order> getAllOrders();
 
     Order create(JsonNode order);
+
+    List<Order> findAll();
+
+    Order findById(Integer id);
 }

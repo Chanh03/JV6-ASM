@@ -1,9 +1,9 @@
 const app = angular.module('myApp', []);
-
 app.controller('myCtrl', function ($scope, $http) {
     // Giỏ hàng
     $scope.cart = {
-        items: [], add(id) {
+        items: [],
+        add(id) {
             const item = this.items.find(item => item.id === id);
             if (item) {
                 item.quantity++;
@@ -20,13 +20,17 @@ app.controller('myCtrl', function ($scope, $http) {
                     this.saveToLocalStorage();
                 });
             }
-        }, remove(id) {
+        },
+
+        remove(id) {
             const index = this.items.findIndex(item => item.id === id);
             if (index !== -1) {
                 this.items.splice(index, 1);
                 this.saveToLocalStorage();
             }
-        }, clear() {
+        },
+
+        clear() {
             if (this.items.length === 0) {
                 alert('Giỏ hàng trống');
             } else if (confirm('Bạn có chắc chắn muốn xóa tất cả sản phẩm trong giỏ hàng?')) {
@@ -42,23 +46,31 @@ app.controller('myCtrl', function ($scope, $http) {
 
         // Tính tổng số lượng sản phẩm trong giỏ hàng
         get count() {
-            return this.items.length > 0 ? this.items.reduce((total, item) => total + item.quantity, 0) : '';
+            if (this.items.length === 0) {
+                return '';
+            }
+            return this.items.reduce((total, item) => total + item.quantity, 0);
         },
 
         // Tính tổng tiền của tất cả sản phẩm trong giỏ hàng
         get sum() {
             return this.items.reduce((total, item) => total + item.price * item.quantity, 0);
-        }, saveToLocalStorage() {
+        },
+
+        saveToLocalStorage() {
             localStorage.setItem('cart', JSON.stringify(this.items));
-        }, loadFromLocalStorage() {
+        },
+
+        loadFromLocalStorage() {
             const json = localStorage.getItem('cart');
             this.items = json ? JSON.parse(json) : [];
-            console.log('Loaded cart from localStorage:', this.items);
-        }
-    }
+            console.log(json);
+        },
+    };
     $scope.cart.loadFromLocalStorage();
+
     $scope.order = {
-        username: {username: $('#username').text()},  // Sử dụng .val() để lấy giá trị từ thẻ input
+        username: {username: $('#username').text()},
         address: '',
         createDate: new Date().toISOString(),  // Định dạng ngày theo yêu cầu backend (ISO 8601)
 
@@ -91,4 +103,5 @@ app.controller('myCtrl', function ($scope, $http) {
             }
         }
     };
+
 });

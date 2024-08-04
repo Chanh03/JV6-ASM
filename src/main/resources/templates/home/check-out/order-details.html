@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{/home/index.html :: home(~{::body})}" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h1 class="textDecor">Order Details</h1>
+<div class="row">
+    <!--    CART DETAIL-->
+    <div class="col-lg-7 overflow-auto card shadow" style="height: 70vh">
+        <div th:each="o : ${orderDetails}" class="card mb-3 mt-3">
+            <div class="row">
+                <div style="height: 200px" class="col-lg-4 align-middle d-flex justify-content-center">
+                    <img class="w-100" th:src="@{/images/{id}(id=${o.product.getImage()})}"
+                         th:alt="${o.product.getImage()}">
+                </div>
+                <div class="col-lg-8">
+                    <div class="card-body">
+                        <div class="d-flex gap-2">
+                            <p class="card-title" th:text="${o.product.name}"></p>
+                            <a class="nav-link" th:href="@{/product-detail/{id}(id=${o.product.getId()})}">Xem</a>
+                        </div>
+                        <p class="card-text"
+                           th:text="${o.product.price + 'x' + o.price + '=' + o.price*o.quantity}"></p>
+                        <p class="card-text" th:text="${o.product.getDescription()}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--    ORDER DETAIL-->
+    <div class="col-lg-5">
+        <div class="card shadow">
+            <div class="card-body">
+                <h5 class="card-title   ">Thông tin đơn hàng</h5>
+                <div class="form-floating mb-3">
+                    <input th:value="${order.username.getFullname()}" type="email" class="form-control" id="Fullname"
+                           placeholder="Fullname" required>
+                    <label for="Fullname">Họ và tên</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input th:value="${order.username.getEmail()}" type="text" class="form-control" id="Email"
+                           placeholder="Email" required>
+                    <label for="Email">Email</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input th:value="${order.address}" type="text" class="form-control" id="address"
+                           placeholder="Address" required>
+                    <label for="address">Địa chỉ</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

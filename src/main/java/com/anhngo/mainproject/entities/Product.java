@@ -1,5 +1,7 @@
 package com.anhngo.mainproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -47,11 +49,13 @@ public class Product {
     @Column(name = "Available", nullable = false)
     private Boolean available = false;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "Category_Id", nullable = false)
     private Category category;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "product")
     private Set<OrderDetail> orderDetails = new LinkedHashSet<>();
 

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{/home/index.html :: home(~{::body})}" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lịch sử đơn hàng</title>
+</head>
+<body>
+<h1 class="textDecor">Lịch sử đơn hàng</h1>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow">
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Mã đơn hàng</th>
+                        <th scope="col">Ngày đặt hàng</th>
+                        <th scope="col">Địa chỉ</th>
+                        <th scope="col">Chi tiết</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="order : ${orderHistory}">
+                        <td th:text="${order.id}"></td>
+                        <td th:text="${order.createDate}"></td>
+                        <td th:text="${order.address}"></td>
+                        <td><a th:href="@{/order/detail/{id}(id=${order.id})}">Chi tiết</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

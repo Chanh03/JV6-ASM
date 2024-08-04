@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{/home/index.html :: home(~{::body})}" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thành công</title>
+</head>
+<body>
+<h1 class="textDecor">Đặt hàng thành công</h1>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow">
+            <div class="card-body">
+                <form action="">
+                    <div class="form-floating mb-3">
+                        <input th:value="${orders.username.getFullname()}" type="email" class="form-control" id="email"
+                               placeholder="
+                                 Email" required>
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input th:value="${orders.username.getEmail()}" type="text" class="form-control" id="phone"
+                               placeholder="Phone" required>
+                        <label for="phone">Số điện thoại</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input th:value="${orders.address}" type="text" class="form-control" id="address"
+                               placeholder="Address" required>
+                        <label for="address">Địa chỉ</label>
+                    </div>
+                </form>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Mã đơn hàng</th>
+                    <th scope="col">Ngày đặt hàng</th>
+                    <th scope="col">Địa chỉ</th>
+                    <th scope="col">Chi tiết</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="o : ${orderDetails}">
+                    <td th:text="${o.id}"></td>
+                    <td th:text="${o.product.name}"></td>
+                    <td th:text="${o.quantity + 'x' + o.product.price + '=' + o.}"></td>
+                    <td>
+                        <a th:href="@{/home/check-out/order-details/{id}(id=${orders.id})}" class="btn btn-primary">Chi
+                            tiết</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

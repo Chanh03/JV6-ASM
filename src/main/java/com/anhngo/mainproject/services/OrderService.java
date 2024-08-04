@@ -59,4 +59,14 @@ public class OrderService implements OrderServiceInterface {
         return order;
     }
 
+    @Override
+    public List<Order> findAll() {
+        return orderRepo.findAll();
+    }
+
+    @Override
+    public Order findById(Integer id) {
+        return orderRepo.findById(id).get();
+    }
+
 }

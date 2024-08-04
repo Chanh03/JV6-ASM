@@ -4,11 +4,10 @@ import com.anhngo.mainproject.entities.Account;
 import com.anhngo.mainproject.services.CategoryService;
 import com.anhngo.mainproject.services.ProductServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,15 +20,17 @@ public class HomeController {
     @Autowired
     private CategoryService categoryService;
 
+    @ModelAttribute
+    public void init(Model model, @AuthenticationPrincipal Account account) {
+        if (account != null) {
+            model.addAttribute("username", account.getFullname());
+        } else {
+            model.addAttribute("username", "Guest");
+        }
+    }
+
     @RequestMapping()
     public String home(Model model) {
-        //CHECK ROLE
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null && auth.isAuthenticated() && auth.getPrincipal() instanceof UserDetails) {
-            UserDetails userDetails = (UserDetails) auth.getPrincipal();
-            String fullname = ((Account) userDetails).getFullname();
-            model.addAttribute("username", fullname);
-        }
         model.addAttribute("listCategory", categoryService.getAllCategories());
         model.addAttribute("products", productService.getAllProduct());
         return "home/home";
@@ -67,8 +68,18 @@ public class HomeController {
         return "home/cartDetail";
     }
 
+    @RequestMapping("/access-denied")
+    public String accessDenied() {
+        return "security/access-denied";
+    }
+
     @RequestMapping("/login")
     public String login() {
-        return "/login";
+        return "security/login";
+    }
+
+    @RequestMapping("/order-checkout")
+    public String orderCheckout() {
+        return "home/check-out/order-checkout";
     }
 }

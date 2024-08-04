@@ -67,10 +67,11 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/login}" sec:authorize="${isAnonymous()}">
                         <i class="fa-solid fa-user"></i></a>
-                    <div class="d-flex">
-                        <a class="nav-link" sec:authorize="${isAuthenticated()}"
-                           th:text="${'Chào mừng : '+username}"></a>
-                        <a class="nav-link" th:href="@{/logout}" sec:authorize="${isAuthenticated()}">Logout</a>
+                    <div class="d-flex align-middle align-items-center">
+                        <a class="textDecor mx-5" sec:authorize="${isAuthenticated()}">Chào, <span
+                                th:text="${username}"></span></a>
+                        <a class="nav-link" th:href="@{/logout}" sec:authorize="${isAuthenticated()}"><i
+                                class="fa-solid fa-arrow-right-from-bracket"></i></a>
                     </div>
                 </li>
             </ul>

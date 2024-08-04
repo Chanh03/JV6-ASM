@@ -19,11 +19,11 @@
     <div class="col-lg-3 ">
         <!--CATEGORY-->
         <div class="card p-3 shadow-lg border-0">
-            <h5><b>Loại sản phẩm</b></h5>
+            <h5><b><i class="fa-solid fa-list"></i> Loại sản phẩm</b></h5>
             <div class="list-group list-group-light">
                 <a class="list-group-item list-group-item-action px-3 border-0"
                    th:each="catergory,status : ${listCategory}" th:href="@{/search(id=${catergory.id})}">
-                    <span th:text="${status.index + 1 +'.' +catergory.name}">Category</span>
+                    <span class="textDecor" th:text="${status.index + 1 +'.' +catergory.name}">Category</span>
                     <span class="float-end" th:text="${catergory.products.size()}">0</span>
                 </a>
             </div>
@@ -59,10 +59,10 @@
             <h1 class="text-center textDecor">Sản phẩm</h1>
             <h5>Số sản phẩm : <b th:text="${products.size()}"></b></h5>
         </div>
-        <div class="row g-5">
-            <div class="col-lg-4" th:each="product : ${products}">
+        <div class="row g-3">
+            <div class="col-lg-3" th:each="product : ${products}">
                 <div class="card shadow overflow-hidden border-0 justify-content-center align-items-center p-3"
-                     style="height: 20rem">
+                     style="height: 15rem">
                     <img class="w-100" th:alt="${product.image}"
                          th:src="@{/images/{image}(image=${product.image})}"/>
                     <div
@@ -88,7 +88,7 @@
                             <span class="badge card-text"
                                   th:classappend="${product.available ? 'text-bg-success' : 'text-bg-danger'}"
                                   th:text="${product.available ? 'Còn hàng' : 'Hết hàng'}">AVAILABLE</span>
-                        <span class="fs-1" th:text="${product.price} + '$'">GIÁ</span>
+                        <span class="fs-3" th:text="${product.price} + '$'">GIÁ</span>
                     </div>
                 </div>
             </div>

@@ -28,19 +28,24 @@ public class SecurityConfig {
             auth.requestMatchers("/admin").hasAnyRole("ADMIN", "STAFF");
             auth.requestMatchers("/users").hasRole("ADMIN");
             auth.requestMatchers("/products").hasAnyRole("ADMIN", "STAFF");
+            auth.requestMatchers("/categories").hasAnyRole("ADMIN", "STAFF");
+            auth.requestMatchers("/order-checkout").authenticated();
             auth.anyRequest().permitAll();
         });
         http.formLogin(form -> {
-
+            form.loginPage("/login").permitAll().defaultSuccessUrl("/").failureUrl("/login?error=true");
         });
         http.logout(logout -> {
-            logout.logoutUrl("/logout").logoutSuccessUrl("/").invalidateHttpSession(true).deleteCookies("JSESSIONID");
+            logout.logoutSuccessUrl("/").invalidateHttpSession(true).deleteCookies("JSESSIONID");
         });
 
         http.exceptionHandling(ex -> {
-            ex.accessDeniedPage("/access-denied.html");
+            ex.accessDeniedPage("/access-denied");
         });
-
+        http.rememberMe(rememberMe -> {
+//            1 ngày
+            rememberMe.key("uniqueAndSecret").tokenValiditySeconds(86400).userDetailsService(accountServiceDetails);
+        });
         return http.build();
     }
 

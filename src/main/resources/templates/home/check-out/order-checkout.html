@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{/home/index.html :: home(~{::body})}" xmlns:th="https://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Check Out</title>
+</head>
+<body>
+<h1>Check Out</h1>
+<div class="row">
+    <!--    CART DETAIL-->
+    <div class="col-lg-5 overflow-auto card shadow" style="height: 70vh">
+        <div ng-if="cart.items.length == 0" class="alert alert-warning">Giỏ hàng trống
+            <a class="nav-item" th:href="@{/}">mua ngay</a></div>
+        <div ng-repeat="i in cart.items" class="card mb-3 mt-3">
+            <div class="row">
+                <div class="col-lg-2 align-middle d-flex justify-content-center">
+                    <img class="w-100" src="/images/{{i.image}}" alt="{{i.image}}">
+                </div>
+                <div class="card-body col-lg-10">
+                    <div class="d-flex gap-5">
+                        <h5 class="card-title fw-bold">{{$index+1}}.{{i.name}}</h5>
+                        <a class="" href="/product-detail/{{i.id}}">Xem</a>
+                    </div>
+                    <h6 class="card-subtitle mb-2 text-muted">Đơn giá: <b>{{i.price}} $</b></h6>
+                    <div class="d-flex align-items-center align-middle justify-content-between">
+                        <div class="gap-2 d-flex justify-content-center align-items-center align-middle">
+                            <b>{{i.price}}</b>
+                            x
+                            <b>{{i.quantity}}</b>
+                            <b> = {{i.price * i.quantity}} $</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center my-5">
+            <a ng-if="cart.items.length > 0" class="btn btn-primary" href="/">Tiếp tục mua hàng</a>
+        </div>
+    </div>
+    <!--    CART SUMMARY-->
+    <div class="col-lg-7">
+        <div class="card mt-3">
+            <div class="card-body">
+                <p>Tổng sản phẩm: <b>{{cart.count}}</b></p>
+                <p>Sản phẩm: <b>{{cart.items.length}}</b></p>
+                <h3>Tổng: <b>{{cart.sum}} $</b></h3>
+            </div>
+        </div>
+        <form action="/order-checkout" method="post">
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="text" name="address" placeholder="Address" required>
+            <input type="text" name="phone" placeholder="Phone" required>
+            <input type="submit" value="Order">
+        </form>
+    </div>
+</div>
+</body>
+</html>

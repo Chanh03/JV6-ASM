@@ -78,8 +78,5 @@ public class HomeController {
         return "security/login";
     }
 
-    @RequestMapping("/order-checkout")
-    public String orderCheckout() {
-        return "home/check-out/order-checkout";
-    }
+
 }

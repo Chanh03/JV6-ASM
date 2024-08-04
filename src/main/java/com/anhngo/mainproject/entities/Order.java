@@ -8,7 +8,7 @@ import org.hibernate.annotations.Nationalized;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.Instant;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -28,8 +28,8 @@ public class Order {
     private Account username;
 
     @ColumnDefault("getdate()")
-    @Column(name = "CreateDate", nullable = false)
-    private Instant createDate;
+    @Column(name = "Create_Date", nullable = false)
+    private Date createDate;
 
     @Nationalized
     @Column(name = "Address", nullable = false, length = 100)

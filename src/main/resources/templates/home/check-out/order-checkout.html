@@ -53,7 +53,7 @@
             </div>
             <div class="card-body">
                 <form action="/order/checkout" method="post">
-                    <span id="username">[[${purchaser}]]</span>
+                    <span hidden="hidden" id="username">[[${purchaser}]]</span>
                     <div class="form-floating mb-3">
                         <input disabled th:value="${username}" type="text" class="form-control" id="name"
                                placeholder="Name" required>
@@ -65,15 +65,22 @@
                         <label for="address">Địa chỉ giao hàng</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <h5>{{order.createDate | date:'dd-MM-yyyy'}}</h5> <!-- Hiển thị ngày với định dạng -->
+                        <p>Ngày đặt: {{order.createDate | date:'dd-MM-yyyy'}} <b class="badge text-bg-success">Hôm
+                            nay</b></p> <!-- Hiển thị ngày với định dạng -->
                     </div>
-                    <button type="button" ng-click="order.purchase()" class="btn btn-primary">Đặt hàng</button>
+                    <div class="d-flex gap-5">
+                        <button type="button" ng-click="order.purchase()" class="btn btn-primary w-50">Đặt hàng
+                        </button>
+                        <a style="background-color: red" type="button" th:href="@{/}"
+                           class="btn btn-primary w-50">Hủy
+                        </a>
+                    </div>
                 </form>
             </div>
         </div>
-    </div>
-    <div class="col-lg-7">
-        <a class="btn btn-primary" href="/order/history">Lịch sử đơn hàng</a>
+        <div class="text-center mt-5">
+            <a class="btn btn-primary w-50" href="/order/history">Lịch sử đơn hàng</a>
+        </div>
     </div>
 </div>
 </body>

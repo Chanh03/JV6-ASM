@@ -23,4 +23,6 @@ public interface UserServicesInterface {
     boolean existsByUsername(String username);
 
     Iterable<Account> searchAccount(String s, String s1, String s2);
+
+    Account findByEmail(String email);
 }

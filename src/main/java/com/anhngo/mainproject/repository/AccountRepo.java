@@ -15,4 +15,6 @@ public interface AccountRepo extends JpaRepository<Account, String> {
     boolean existsByUsername(String username);
 
     Iterable<Account> findAllByUsernameContainingOrEmailContainingOrFullnameContaining(String s, String s1, String s2);
+
+    Account findByEmail(String email);
 }

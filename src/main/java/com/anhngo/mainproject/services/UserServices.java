@@ -53,4 +53,9 @@ public class UserServices implements UserServicesInterface {
     public Iterable<Account> searchAccount(String s, String s1, String s2) {
         return accountRepo.findAllByUsernameContainingOrEmailContainingOrFullnameContaining(s, s1, s2);
     }
+
+    @Override
+    public Account findByEmail(String email) {
+        return accountRepo.findByEmail(email);
+    }
 }

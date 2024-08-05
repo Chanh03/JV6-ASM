@@ -9,6 +9,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient;
+import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
+import org.springframework.security.oauth2.client.endpoint.OAuth2AuthorizationCodeGrantRequest;
+import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
+import org.springframework.security.oauth2.client.web.HttpSessionOAuth2AuthorizationRequestRepository;
+import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -46,8 +52,33 @@ public class SecurityConfig {
 //            1 ngày
             rememberMe.key("uniqueAndSecret").tokenValiditySeconds(86400).userDetailsService(accountServiceDetails);
         });
+
+        http.oauth2Login(oauth2 -> {
+            oauth2.loginPage("/oauth2/login/form")
+                    .defaultSuccessUrl("/oauth2/login/success", true)
+                    .failureUrl("/oauth2/login/failure")
+                    .authorizationEndpoint(authorization ->
+                            authorization.baseUri("/oauth2/authorization") //form login google
+                                    .authorizationRequestRepository(getAuthorizationRequestRepository())
+                    )
+                    .tokenEndpoint(token ->
+                            token.accessTokenResponseClient(getTokenResponseClient())
+                    );
+        });
+
         return http.build();
     }
+
+    @Bean
+    public AuthorizationRequestRepository<OAuth2AuthorizationRequest> getAuthorizationRequestRepository() {
+        return new HttpSessionOAuth2AuthorizationRequestRepository();
+    }
+
+    @Bean
+    public OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> getTokenResponseClient() {
+        return new DefaultAuthorizationCodeTokenResponseClient();
+    }
+
 
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {

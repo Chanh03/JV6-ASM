@@ -54,7 +54,7 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <!--                    LOGIN-->
-                    <a class="nav-link" th:href="@{/login}" sec:authorize="${isAnonymous()}">Sign In</a>
+                    <a class="nav-link" th:href="@{/login}" sec:authorize="${isAnonymous()}">Log In</a>
                     <div class="d-flex align-middle align-items-center">
                         <!--                        SAY HELLO-->
                         <a class="textDecor mx-5" sec:authorize="${isAuthenticated()}">Chào, <span

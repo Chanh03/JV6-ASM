@@ -17,3 +17,4 @@ is hosted on GitHub Pages.
     - Decrease quantity of products
 - Calculate total price of products in cart
 - Checkout
+``Login``

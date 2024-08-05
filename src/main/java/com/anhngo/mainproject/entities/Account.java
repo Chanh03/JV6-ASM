@@ -1,5 +1,6 @@
 package com.anhngo.mainproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,27 +41,33 @@ public class Account implements UserDetails {
     @Column(name = "Enabled")
     private Boolean enabled;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     private Set<Authority> authorities;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "username")
     private Set<Order> orders = new LinkedHashSet<>();
 
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;

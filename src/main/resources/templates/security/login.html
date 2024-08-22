@@ -12,7 +12,10 @@
                 <div class="card-body">
                     <h1 class="card-title text-center textDecor">Login</h1>
                     <form action="/login" method="post">
-                        <h5 class="alert alert-danger" th:text="${errorMessage}" th:if="${errorMessage}"></h5>
+                        <h5 class="alert"
+                            th:classappend="${message ? 'alert-success' : 'alert-danger'}"
+                            th:text="${message ? 'Đăng nhập thành công' : 'Đăng nhập thất bại'}"
+                            th:if="${message}"></h5>
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="username" name="username" placeholder="Username"
                                    required>

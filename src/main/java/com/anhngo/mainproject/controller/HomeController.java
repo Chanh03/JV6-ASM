@@ -5,7 +5,7 @@ import com.anhngo.mainproject.services.CategoryService;
 import com.anhngo.mainproject.services.ProductServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,9 +22,13 @@ public class HomeController {
     private CategoryService categoryService;
 
     @ModelAttribute
-    public void init(Model model, @AuthenticationPrincipal Account account) {
-        if (account != null) {
-            model.addAttribute("username", account.getFullname());
+    public void init(Model model, @AuthenticationPrincipal Object principal) {
+        if (principal instanceof OAuth2User) {
+            OAuth2User oauth2User = (OAuth2User) principal;
+            model.addAttribute("username", oauth2User.getAttribute("name"));
+        } else if (principal instanceof Account) {
+            Account user = (Account) principal;
+            model.addAttribute("username", user.getUsername());
         } else {
             model.addAttribute("username", "Guest");
         }
@@ -75,10 +79,14 @@ public class HomeController {
     }
 
     @RequestMapping("/login")
-    public String login(@RequestParam(value = "error", required = false) String error, Model model) {
+    public String login(@RequestParam(value = "error", required = false) String error, Model model, @AuthenticationPrincipal Account account) {
         if (error != null) {
-            model.addAttribute("errorMessage", "Sai rồi bạn êi :D");
+            model.addAttribute("message", false);
+        }
+        if (account != null) {
+            model.addAttribute("message", true);
         }
         return "security/login";
     }
 }
+

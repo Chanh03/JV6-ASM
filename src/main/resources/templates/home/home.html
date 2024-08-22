@@ -75,7 +75,13 @@
     <div class="col-lg-9">
         <div>
             <h1 class="text-center textDecor">Sản phẩm</h1>
-            <h5>Số sản phẩm : <b th:text="${products.size()}"></b></h5>
+            <div>
+                <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm" id="searchInput"
+                       list="searchList">
+                <datalist id="searchList">
+                    <option th:each="product : ${products}" th:text="${product.name}"></option>
+                </datalist>
+            </div>
         </div>
         <div class="row g-3">
             <div class="col-lg-3" th:each="product : ${products}">

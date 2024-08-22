@@ -1,5 +1,10 @@
 package com.anhngo.mainproject.controller;
 
+import com.anhngo.mainproject.entities.Account;
+import com.anhngo.mainproject.entities.Authority;
+import com.anhngo.mainproject.entities.Role;
+import com.anhngo.mainproject.repository.AuthorityRepo;
+import com.anhngo.mainproject.repository.RoleRepo;
 import com.anhngo.mainproject.services.UserServicesInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,6 +23,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class OAuth2GoogleController {
     @Autowired
     private UserServicesInterface userRepository;
+    @Autowired
+    private AuthorityRepo authorityRepo;
+    @Autowired
+    private RoleRepo roleRepo;
 
     @GetMapping("/login/form")
     public String loginForm() {
@@ -29,18 +38,42 @@ public class OAuth2GoogleController {
         String email = accessToken.getPrincipal().getAttribute("email");
         String fullname = accessToken.getPrincipal().getAttribute("name");
         assert email != null;
-        model.addAttribute("username", fullname);
-        UserDetails userDetails = User.withUsername(email).password("").authorities("USER").build();
+        Account existingUser = userRepository.findByEmail(email);
+        if (existingUser == null) {
+            // Nếu chưa tồn tại, tạo một user mới
+            Account newUser = new Account();
+            newUser.setUsername(email);
+            newUser.setEmail(email);
+            newUser.setFullname(fullname);
+            newUser.setPassword(""); // Không cần mật khẩu vì user login bằng OAuth2
+            newUser.setEnabled(true); // Đảm bảo rằng user được kích hoạt
+            newUser.setPhoto("google.png");
+            userRepository.saveAccount(newUser);
+        }
+        Role role = roleRepo.findByName("ROLE_USER");
+        Authority existingAuthority = authorityRepo.findByAccount(userRepository.findByEmail(email));
+        if (existingAuthority == null) {
+            Authority newAuthority = new Authority();
+            newAuthority.setAccount(userRepository.findByEmail(email));
+            newAuthority.setRole(role);
+            authorityRepo.save(newAuthority);
+        }
+        UserDetails userDetails = User.withUsername(email).password("").roles("USER").build();
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        // In thông tin Authentication để kiểm tra
+        Authentication currentAuth = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("Current User: " + currentAuth.getName());
+        System.out.println("Authorities: " + currentAuth.getAuthorities());
 
-        Authentication auth = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(auth);
-        return "security/login";
+        model.addAttribute("username", fullname);
+        return "home/home";
     }
 
 
     @GetMapping("/login/failure")
     public String loginFailure(Model model) {
-        model.addAttribute("errorMessage", "Login failed");
+        model.addAttribute("message", false);
         return "security/login";
     }
 }
